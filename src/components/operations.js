@@ -1,7 +1,5 @@
 import New from '../operation/New'
 
-
-
 const Operations = () => {
     return (  
         <div className="operations">

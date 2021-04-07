@@ -68,6 +68,7 @@
 }
 
 
+
 /**************************/
 /*view*/
 .view{
@@ -98,20 +99,27 @@
     cursor: pointer;
 }
 
+/*down section */
+.downSection{
+    display: inline;
+}
+
+
+
 /* create new blog form */
 .create {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 0 0;
     text-align: center;
 }
 .create label {
     text-align: left;
     display: block;
 }
-.create h2 {
+.create h3 {
     font-size: 20px;
     color: #f1356d;
-    margin-bottom: 30px;
+    margin-bottom: 30px;   
 }
 .create input, .create textarea, .create select {
     width: 100%;
