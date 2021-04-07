@@ -1,8 +1,8 @@
-import {Transicion} from './Transicion.js'
+import Transicion from './Transicion'
 
 let contadorIdEstado = 0;
 
-export class Estado {
+export default class Estado {
     constructor(){
         this.transiciones = new Set([Transicion]);
         this.aceptacion = false;
