@@ -25,13 +25,13 @@ export default class Transicion {
         this.edo_Trans = edo_Trans;
     }
 
-    setTransicion(simb_inicial, simb_final, edo_Trans){
+    setTransicion1(simb_inicial, simb_final, edo_Trans){
         this.simb_inicial = simb_inicial;
         this.simb_final = simb_final;
         this.edo_Trans = edo_Trans;
     }
 
-    setTransicion(simb_inicial, edo_Trans){
+    setTransicion2(simb_inicial, edo_Trans){
         this.simb_inicial = simb_inicial;
         this.simb_final = simb_inicial;
         this.edo_Trans = edo_Trans;
