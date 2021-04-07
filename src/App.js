@@ -9,6 +9,7 @@ import Optional from './operation/Optional'
 import LexiconAnalyzer_AFNs from './operation/LexiconAnalyzer_AFNs'
 import AFN_to_AFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
+import Operation from './components/operations'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -21,31 +22,31 @@ function App() {
                         <Route exact path="/">
                             <Home></Home>
                         </Route>
-                        <Route path="./operation/New">
+                        <Route exact path="/operation/New">
                             <New></New>
                         </Route>
-                        <Route path="./operation/Join">
+                        <Route exact path="/operation/Join">
                             <Join></Join>
                         </Route>
-                        <Route path="./operation/Concatenate">
+                        <Route exact path="/operation/Concatenate">
                             <Concatenate></Concatenate>
                         </Route>
-                        <Route path="./operation/Transitive">
+                        <Route exact path="/operation/Transitive">
                             <Transitive></Transitive>
                         </Route>
-                        <Route path="./operation/Star">
+                        <Route exact path="/operation/Star">
                             <Star></Star>
                         </Route>
-                        <Route path="./operation/Optional">
+                        <Route exact path="/operation/Optional">
                             <Optional></Optional>
                         </Route>
-                        <Route path="./operation/LexiconAnalyzer_AFNs">
+                        <Route exact path="/operation/LexiconAnalyzer_AFNs">
                             <LexiconAnalyzer_AFNs></LexiconAnalyzer_AFNs>
                         </Route>
-                        <Route path="./operation/AFN_to_AFD">
+                        <Route exact path="/operation/AFN_to_AFD">
                             <AFN_to_AFD></AFN_to_AFD>
                         </Route>
-                        <Route path="./operation/AnalyzeLexically">
+                        <Route exact path="/operation/AnalyzeLexically">
                             <AnalyzeLexically></AnalyzeLexically>
                         </Route>
                     </Switch>

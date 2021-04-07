@@ -15,7 +15,6 @@ const Navbar = () => {
                 <Link to="../operation/LexiconAnalyzer_AFNs">Analizador léxico</Link>
                 <Link to="../operation/AFN_to_AFD">AFN a AFD</Link>
                 <Link to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
-
             </div>
         </nav>
     );
