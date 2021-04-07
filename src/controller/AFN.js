@@ -17,16 +17,23 @@ let epsilon = String.fromCharCode(5);
 let fin = String.fromCharCode(0);
 
 export class AFN{  
-    constructor(){
+    constructor(s1, s2 = ''){
         this.idAFN = idContadorAFN++;
         this.edoInicial = null;
         this.edosAFN = new Set([Estado]);
         this.edosAceptacion = new Set([Estado]);
         this.alfabeto = new Set([CharacterData]);
+
+        if(s2 === ''){
+            this.constructor1(s1);
+        }
+        else{
+            this.constructor2(s1, s2);
+        }
     }
 
     //  Constructor con un caracter
-    constructor(s1){
+    constructor1(s1){
         e1 = new Estado();                  //  Creamos los nuevos estados
         e2 = new Estado();
         t = new Transicion(s1, e2);         //  Creamos la nueva transicion
@@ -41,7 +48,7 @@ export class AFN{
         return this;
     }
 
-    constructor(s1, s2){
+    constructor2(s1, s2){
         const i = s1.charCodeAt(0);         //  Valores ascii de los simbolos
         const j = s2.charCodeAt(0);
         

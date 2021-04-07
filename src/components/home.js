@@ -8,6 +8,8 @@ const Home = () => {
 			<h2>Automatas</h2>
 			<Table></Table>
 			<Operation></Operation>
+			<br/>
+            <p>Seleccione del menú la opción correspondiente.</p>
 			<View></View>
 		</div>
 	);

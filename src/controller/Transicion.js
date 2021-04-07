@@ -1,19 +1,25 @@
 import {Estado} from './Estado.js'
 
 export default class Transicion {
-    constructor(){
+    constructor(s1, s2 = '', edo_Trans){
         this.simb_inicial = null;
         this.simb_final = null;
         this.edo_Trans = new Estado();
+
+        if(s2 === ''){
+            this.constructor1(s1, edo_Trans);
+        }else{
+            this.constructor2(s1, s2, edo_Trans);
+        }
     }
 
-    constructor(simb_inicial, edo_Trans){
+    constructor1(simb_inicial, edo_Trans){
         this.simb_inicial = simb_inicial;
         this.simb_final = simb_inicial;
         this.edo_Trans = edo_Trans;
     }
 
-    constructor(simb_inicial, simb_final, edo_Trans){
+    constructor2(simb_inicial, simb_final, edo_Trans){
         this.simb_inicial = simb_inicial;
         this.simb_final = simb_final;
         this.edo_Trans = edo_Trans;
