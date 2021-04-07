@@ -13,10 +13,10 @@ export class Estado {
     setIdEstado(idEstado){  this.idEstado = idEstado;   }
     setAceptacion(aceptacion){ this.aceptacion = aceptacion }
     setToken(token){    this.token = token   }  
-    setTransicion(transiciones) { this.transiciones.add(transiciones) }
+    addTransicion(transiciones) { this.transiciones.add(transiciones) }
     getIdEstado(){  return this.idEstado;   }
     getAceptacion(){ return this.aceptacion }
     getToken(){ return this.token   }  
-    getTransicion() { return this.transiciones }
+    getTransiciones() { return this.transiciones }
 
 }

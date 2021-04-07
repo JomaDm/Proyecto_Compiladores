@@ -30,7 +30,7 @@ export class AFN{
         e1 = new Estado();                  //  Creamos los nuevos estados
         e2 = new Estado();
         t = new Transicion(s1, e2);         //  Creamos la nueva transicion
-        e1.setTranscion(t);                 //  Agreagamos la transicion al estado del que parte
+        e1.addTransicion(t);                 //  Agreagamos la transicion al estado del que parte
         e2.setAceptacion(true);             //  Asignamos el estado de aceptacion
         this.alfabeto.add(s1);              //  Agregamos los datos a los conjuntos requeridos
         this.edosAFN.add(e1);
@@ -50,7 +50,7 @@ export class AFN{
         e1 = new Estado();                  //  Nuevos estados
         e2 = new Estado();
         t = new Transicion(s1, s2, e2);     //  Nueva transicion
-        e1.setTranscion(t);                 //  Asignar transicion
+        e1.addTransicion(t);                 //  Asignar transicion
         e2.setAceptacion(true);             //  Asignar estado de aceptacion
         
         for(let k = i; k <= j; k++){        //  Agregar al alfabeto
@@ -71,8 +71,8 @@ export class AFN{
         t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
         t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
 
-        e1.setTranscion(t1);                    //  Nuevas transiciones
-        e1.setTranscion(t2);
+        e1.addTransicion(t1);                    //  Nuevas transiciones
+        e1.addTransicion(t2);
 
         this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion
             edo = new Transicion(epsilon, e2);
@@ -103,6 +103,82 @@ export class AFN{
 
         return this;
     }
+
+    concatenar(AFN2){
+        this.edosAceptacion.forEach(edo => {                //
+            edo.addTransicion(AFN2.edoInicial.getTransiciones());
+            edo.setAceptacion(false);
+        });
+
+        AFN2.edoInicial.transiciones.clear();
+        AFN2.edosAFN.remove(AFN2.edoInicial);
+
+        AFN2.edosAFN.forEach(edo => {
+            this.edosAFN.add(edo);
+        });
+
+        AFN2.alfabeto.forEach(simb => {
+            this.alfabeto.add(simb);
+        });
+
+        this.edosAceptacion.clear();
+        this.edosAceptacion.add(AFN2.edosAceptacion);
+
+        return this;
+    }
+
+    transitiva(){
+        e1 = new Estado();
+        e2 = new Estado();
+
+        e1.addTransicion(new Transicion(epsilon, this.edoInicial));
+        this.edosAceptacion.forEach(edo => {
+            edo.addTransicion(new Transicion(epsilon, e2));
+            edo.addTransicion(new Transicion(epsilon, e1));
+            edo.edosAceptacion.setAceptacion(false);
+        });
+
+        this.edoInicial = e1;
+        e2.setAceptacion(true);
+        this.edosAceptacion.clear();
+        this.edosAceptacion.add(e2);
+        this.edosAFN(e1);
+        this.edosAFN(e2);
+
+        return this;
+    }
+
+    kleene(){
+        AFN1 = this.transitiva();
+        this.edosAceptacion.forEach(edo => {
+            AFN1.edoInicial.addTransicion(new Transicion(epsilon, edo));
+        });
+        return AFN1;
+    }   
+
+    optional(){
+        e1 = new Estado();
+        e2 = new Estado();
+        e1.addTransicion(new Transicion(epsilon, this.edoInicial));
+        e1.addTransicion(new Transicion(epsilon, e2));
+    
+        this.edosAceptacion.forEach(edo => {
+            edo.addTransicion(new Transicion(epsilon, e2));
+            edo.setAceptacion(false);
+        });
+
+        e2.setAceptacion(true);
+
+        this.edosAFN.add(e1);
+        this.edosAFN.add(e2);
+        this.edosAceptacion.clear();
+        this.edosAceptacion.add(e2);
+        this.edoInicial = e1;
+
+        return this;
+    }
+
+
 
 
 }
