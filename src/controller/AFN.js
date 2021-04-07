@@ -34,9 +34,9 @@ export class AFN{
 
     //  Constructor con un caracter
     constructor1(s1){
-        e1 = new Estado();                  //  Creamos los nuevos estados
-        e2 = new Estado();
-        t = new Transicion(s1, e2);         //  Creamos la nueva transicion
+        let e1 = new Estado();                  //  Creamos los nuevos estados
+        let e2 = new Estado();
+        let t = new Transicion(s1, e2);         //  Creamos la nueva transicion
         e1.addTransicion(t);                 //  Agreagamos la transicion al estado del que parte
         e2.setAceptacion(true);             //  Asignamos el estado de aceptacion
         this.alfabeto.add(s1);              //  Agregamos los datos a los conjuntos requeridos
@@ -54,9 +54,9 @@ export class AFN{
         
         if(!(i <= j))   return null;        //  Comprobacion
         
-        e1 = new Estado();                  //  Nuevos estados
-        e2 = new Estado();
-        t = new Transicion(s1, s2, e2);     //  Nueva transicion
+        let e1 = new Estado();                  //  Nuevos estados
+        let e2 = new Estado();
+        let t = new Transicion(s1, s2, e2);     //  Nueva transicion
         e1.addTransicion(t);                 //  Asignar transicion
         e2.setAceptacion(true);             //  Asignar estado de aceptacion
         
@@ -73,10 +73,10 @@ export class AFN{
     }
 
     unirAFNs(AFN2){
-        e1 = new Estado();                  //  Nuevo edo inicial
-        e2 = new Estado();                  //  Nuevo edo final
-        t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
-        t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
+        let e1 = new Estado();                  //  Nuevo edo inicial
+        let e2 = new Estado();                  //  Nuevo edo final
+        let t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
+        let t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
 
         e1.addTransicion(t1);                    //  Nuevas transiciones
         e1.addTransicion(t2);
@@ -135,8 +135,8 @@ export class AFN{
     }
 
     transitiva(){
-        e1 = new Estado();
-        e2 = new Estado();
+        let e1 = new Estado();
+        let e2 = new Estado();
 
         e1.addTransicion(new Transicion(epsilon, this.edoInicial));
         this.edosAceptacion.forEach(edo => {
@@ -156,7 +156,7 @@ export class AFN{
     }
 
     kleene(){
-        AFN1 = this.transitiva();
+        let AFN1 = this.transitiva();
         this.edosAceptacion.forEach(edo => {
             AFN1.edoInicial.addTransicion(new Transicion(epsilon, edo));
         });
@@ -164,8 +164,8 @@ export class AFN{
     }   
 
     optional(){
-        e1 = new Estado();
-        e2 = new Estado();
+        let e1 = new Estado();
+        let e2 = new Estado();
         e1.addTransicion(new Transicion(epsilon, this.edoInicial));
         e1.addTransicion(new Transicion(epsilon, e2));
     
