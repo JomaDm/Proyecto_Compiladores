@@ -49,12 +49,12 @@ export default class Transicion {
         let aux = simb.charCodeAt(0);
         if(typeof this.simb_final !== 'string'){
             if(this.simb_inicial.charCodeAt(0) === aux){
-                return String(this.edo_Trans);
+                return this.edo_Trans;
             }
         }
         if(typeof this.simb_final === 'string'){
             if(this.simb_inicial.charCodeAt(0) <= aux && this.simb_final.charCodeAt(0) >= aux){
-                return String(this.edo_Trans);
+                return this.edo_Trans.toStringEdo();            
             }
         }
         

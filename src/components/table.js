@@ -30,9 +30,11 @@ const Table = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
                             <p>Estados: [ {strEdos.join(' , ')} ]</p>
                             <p>Edo inicial: [ {automata.edoInicial.toStringEdo()} ]</p>
                             <p>Edos aceptación: [ {strEdosAc.join(' , ')} ]</p>
+                            <p>Transiciones: </p>
+                            <p>{strTran}</p>
                             <br/>
                             <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>
-                            <p>{strTran}</p>
+                            
                             
                         </div>  
                     );

@@ -11,10 +11,7 @@ const Home = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
 				eliminarAutomata={eliminarAutomata}
 			></Table>
 			<Operation></Operation>
-            <p>Seleccione del menú la opción correspondiente.</p>
-			<View 
-				mostrarTablaAutomata={mostrarTablaAutomata}>
-			</View>
+            <p>Seleccione del menú la opción correspondiente.</p>			
 		</div>
 	);
 }
