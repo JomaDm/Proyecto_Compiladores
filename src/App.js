@@ -63,6 +63,7 @@ function App() {
                         <Route exact path="/operation/Concatenate">
                             <Concatenate
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
                                 mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Concatenate>
@@ -70,6 +71,7 @@ function App() {
                         <Route exact path="/operation/Transitive">
                             <Transitive
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
                                 mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Transitive>
@@ -77,6 +79,7 @@ function App() {
                         <Route exact path="/operation/Kleene">
                             <Star
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
                                 mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Star>
@@ -84,6 +87,7 @@ function App() {
                         <Route exact path="/operation/Optional">
                             <Optional
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
                                 mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Optional>

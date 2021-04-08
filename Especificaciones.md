@@ -34,3 +34,13 @@ El programa debe tener un menú con las siguientes opciones:
 -   Considerar el ASCII(para epsilon un no imprimible)
 
 -   Verficar al ingresar un rango para las transiciones si se trata de valores coherentes(se cumpla el rango)
+
+-	Verificar lo que sucede cuando se cambia de pestaña pues los id se reinician
+
+-	Verificar que los rangos para crear un nuevo automata sean correctos
+
+-       Revisar porque se modifican los originales y no las copias como se especifica en las funciones para concatenar y transitiva 
+
+-       Agregar nuevos automatas al arreglo
+
+-       Imprimir bien las transiciones

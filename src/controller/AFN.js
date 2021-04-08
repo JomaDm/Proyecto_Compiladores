@@ -15,11 +15,13 @@ Representacion de un automata finito no determinista
 //let ep = 'ε';
 let epsilon = String.fromCharCode(5);
 //let fin = String.fromCharCode(0);
+let id = 0;
+let idedo = 0;
 
 export default class AFN{      
-    constructor(s1, s2 = '',id=0){
+    constructor(s1, s2 = '',){
         this.noEdo = 0;
-        this.idAFN = id;
+        this.idAFN = id++;
         this.edoInicial = null;
         this.edosAFN = new Set();
         this.edosAceptacion = new Set();
@@ -110,74 +112,83 @@ export default class AFN{
     }
 
     concatenar(AFN2){
-        this.edosAceptacion.forEach(edo => {                //
+        let aux = this;
+        aux.idAFN = id++;
+        aux.edosAceptacion.forEach(edo => {                //
             edo.addTransicion(AFN2.edoInicial.getTransiciones());
             edo.setAceptacion(false);
         });
 
         AFN2.edoInicial.transiciones.clear();
-        AFN2.edosAFN.remove(AFN2.edoInicial);
+        AFN2.edosAFN.delete(AFN2.edoInicial);
 
         AFN2.edosAFN.forEach(edo => {
-            this.edosAFN.add(edo);
+            aux.edosAFN.add(edo);
         });
 
         AFN2.alfabeto.forEach(simb => {
-            this.alfabeto.add(simb);
+            aux.alfabeto.add(simb);
         });
 
-        this.edosAceptacion.clear();
-        this.edosAceptacion.add(AFN2.edosAceptacion);
+        aux.edosAceptacion.clear();
+        aux.edosAceptacion.add(AFN2.edosAceptacion);
         
+        return aux;
     }
 
     transitiva(){
-        let e1 = new Estado();
-        let e2 = new Estado();
+        let aux = this;
+        aux.idAFN = id++;
+        let e1 = new Estado(++aux.noEdo);
+        let e2 = new Estado(++aux.noEdo);
 
-        e1.addTransicion(new Transicion(epsilon, this.edoInicial));
-        this.edosAceptacion.forEach(edo => {
+        e1.addTransicion(new Transicion(epsilon, aux.edoInicial));
+
+        aux.edosAceptacion.forEach(edo => {
             edo.addTransicion(new Transicion(epsilon, e2));
-            edo.addTransicion(new Transicion(epsilon, e1));
-            edo.edosAceptacion.setAceptacion(false);
+            edo.addTransicion(new Transicion(epsilon, aux.edoInicial));
+            edo.setAceptacion(false);
         });
 
-        this.edoInicial = e1;
+        aux.edoInicial = e1;
         e2.setAceptacion(true);
-        this.edosAceptacion.clear();
-        this.edosAceptacion.add(e2);
-        this.edosAFN(e1);
-        this.edosAFN(e2);
+        aux.edosAceptacion.clear();
+        aux.edosAceptacion.add(e2);
+        aux.edosAFN.add(e1);
+        aux.edosAFN.add(e2);
         
+        return aux;
     }
 
     kleene(){
-        let AFN1 = this.transitiva();
-        this.edosAceptacion.forEach(edo => {
+        let aux = this;
+        let AFN1 = aux.transitiva();
+        aux.edosAceptacion.forEach(edo => {
             AFN1.edoInicial.addTransicion(new Transicion(epsilon, edo));
         });
         return AFN1;
     }   
 
     optional(){
-        let e1 = new Estado();
-        let e2 = new Estado();
-        e1.addTransicion(new Transicion(epsilon, this.edoInicial));
+        let aux = this;
+        let e1 = new Estado(++aux.noEdo);
+        let e2 = new Estado(++aux.noEdo);
+        e1.addTransicion(new Transicion(epsilon, aux.edoInicial));
         e1.addTransicion(new Transicion(epsilon, e2));
     
-        this.edosAceptacion.forEach(edo => {
+        aux.edosAceptacion.forEach(edo => {
             edo.addTransicion(new Transicion(epsilon, e2));
             edo.setAceptacion(false);
         });
 
         e2.setAceptacion(true);
 
-        this.edosAFN.add(e1);
-        this.edosAFN.add(e2);
-        this.edosAceptacion.clear();
-        this.edosAceptacion.add(e2);
-        this.edoInicial = e1;
-        
+        aux.edosAFN.add(e1);
+        aux.edosAFN.add(e2);
+        aux.edosAceptacion.clear();
+        aux.edosAceptacion.add(e2);
+        aux.edoInicial = e1;
+        return aux;
     }
 
 }
