@@ -12,7 +12,7 @@ import AFNtoAFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 //import Operations from './components/operations'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import AFN from "./controller/AFN";
+
 
 
 
@@ -45,6 +45,7 @@ function App() {
                         <Route exact path="/operation/Join">
                             <Join
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                             ></Join>
                         </Route>
                         <Route exact path="/operation/Concatenate">

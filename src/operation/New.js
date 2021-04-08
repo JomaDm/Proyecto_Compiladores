@@ -41,7 +41,7 @@ const New = ({automatas,agregarAutomata}) => {
                 automatas={automatas}
             ></Table>
 			<Operations></Operations>
-            <form className="create" autocomplete="off">
+            <form className="create" autoComplete="off">
                 <h3>Crear un nuevo automatas simples</h3>
                 <label>Ingrese el un simbolo para crear el automata o un rango.</label><br/>
                 <label>Para los rangos use un "-" para separar los rangos.</label>

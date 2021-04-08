@@ -82,12 +82,12 @@ export default class AFN{
 
         this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion
             edo = new Transicion(epsilon, e2);
-            edo.setAceptacion(false);
+            //edo.setAceptacion(false);
         });
 
         AFN2.edosAFN.forEach(edo => {
             edo = new Transicion(epsilon, e2);
-            edo.setAceptacion(false);
+            //edo.setAceptacion(false);
         });
 
         this.edosAceptacion.clear();
@@ -99,14 +99,14 @@ export default class AFN{
         this.edosAFN.add(e1);                   //  Agregar nuevos edos
         this.edosAFN.add(e2);
         
-        AFN2.edosAFN.forEach(edo => {
-            this.edosAFN.add(edo);
-        });
+        // AFN2.edosAFN.forEach(edo => {
+        //     this.edosAFN.add(edo);
+        // });
 
         AFN2.alfabeto.forEach(simb => {
             this.alfabeto.add(simb);
         });
-
+        return this;
     }
 
     concatenar(AFN2){
