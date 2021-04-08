@@ -1,5 +1,5 @@
-import {Transicion} from './Transicion.js'
-import {Estado} from './Estado.js'
+import Transicion from './Transicion'
+import Estado from './Estado'
 
 /*
 Representacion de un automata finito no determinista
@@ -16,7 +16,7 @@ let ep = 'ε';
 let epsilon = String.fromCharCode(5);
 let fin = String.fromCharCode(0);
 
-export class AFN{  
+export default class AFN{  
     constructor(s1, s2 = ''){
         this.idAFN = idContadorAFN++;
         this.edoInicial = null;

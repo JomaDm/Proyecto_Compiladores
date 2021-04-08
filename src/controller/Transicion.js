@@ -1,4 +1,4 @@
-import {Estado} from './Estado.js'
+import Estado from './Estado'
 
 export default class Transicion {
     constructor(s1, s2 = '', edo_Trans){
