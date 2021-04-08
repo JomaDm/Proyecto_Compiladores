@@ -2,13 +2,14 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const Transitive = ({automatas, eliminarAutomata}) => {
+const Transitive = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
     return (  
         <div className="transitive">
             <h2>Automatas</h2>
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
+                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">
@@ -17,7 +18,9 @@ const Transitive = ({automatas, eliminarAutomata}) => {
                     <input type="text" id="input-id1"></input>
                     <button className="boton">Aplicar cerradura transitiva</button>
             </form>
-			<View></View>
+			<View 
+				mostrarTablaAutomata={mostrarTablaAutomata}>
+			</View>
         </div>
     );
 }

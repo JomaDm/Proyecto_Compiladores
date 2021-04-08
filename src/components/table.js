@@ -1,5 +1,5 @@
-const Table = ({automatas, eliminarAutomata}) => {
-    
+const Table = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
+
     return (
         <div className="table-list">
             {   
@@ -16,7 +16,7 @@ const Table = ({automatas, eliminarAutomata}) => {
                     for (let edo of automata.edosAceptacion) {
                         strEdosAc.push(edo.toStringEdo())                        
                     }
-                    
+                   
 
                     return (
                         <div className="table-preview" key={automata.idAFN}>
@@ -27,6 +27,7 @@ const Table = ({automatas, eliminarAutomata}) => {
                             <p>Edos aceptación: [ {strEdosAc.join(' , ')} ]</p>
                             <br/>
                             <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>
+                            <button className="button" id="v" onClick={() => mostrarTablaAutomata(automata)}>Visualizar Automata</button>
                         </div>
                     );
                 })

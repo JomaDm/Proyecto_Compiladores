@@ -5,7 +5,7 @@ import AFN  from "../controller/AFN"
 import { useState } from "react";
 
 
-const New = ({automatas, agregarAutomata, eliminarAutomata}) => {    
+const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata}) => {    
 
     const [cadenaAutomata,setCadenaAutomata] = useState('');
     const [contadorId, setContadorId] = useState(0);
@@ -40,6 +40,7 @@ const New = ({automatas, agregarAutomata, eliminarAutomata}) => {
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
+                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create" autoComplete="off">
@@ -57,7 +58,9 @@ const New = ({automatas, agregarAutomata, eliminarAutomata}) => {
                         onClick={(event) => {handleClickAgregarAutomata(event)}}
                     >Crear nuevo automata</button>
             </form>
-			<View></View>
+			<View 
+				mostrarTablaAutomata={mostrarTablaAutomata}>
+			</View>
         </div>
     )
 }

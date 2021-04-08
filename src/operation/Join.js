@@ -3,7 +3,7 @@ import Table from "../components/table"
 import View from "../components/view"
 import { useState } from "react";
 
-const Join = ({automatas,eliminarAutomata,agregarAutomata}) => {
+const Join = ({automatas,eliminarAutomata,agregarAutomata,mostrarTablaAutomata}) => {
 
     const [op1, setOp1] = useState(-1);
     const [op2, setOp2] = useState(-1);
@@ -22,6 +22,7 @@ const Join = ({automatas,eliminarAutomata,agregarAutomata}) => {
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
+                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">
@@ -79,7 +80,9 @@ const Join = ({automatas,eliminarAutomata,agregarAutomata}) => {
                         onClick={(event) => handleClickUnir(event)}    
                     >Unir automatas</button>                    
             </form>
-			<View></View>
+			<View 
+				mostrarTablaAutomata={mostrarTablaAutomata}>
+			</View>
         </div>
     );
 }
