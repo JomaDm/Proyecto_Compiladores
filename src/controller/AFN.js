@@ -11,15 +11,15 @@ Representacion de un automata finito no determinista
 -Objeto para las transiciones
 */  
 
-let idContadorAFN = -1;
+
 //let ep = 'ε';
 let epsilon = String.fromCharCode(5);
 //let fin = String.fromCharCode(0);
 
-export default class AFN{  
-    constructor(s1, s2 = ''){
+export default class AFN{      
+    constructor(s1, s2 = '',id=0){
         this.noEdo = 0;
-        this.idAFN = idContadorAFN++;
+        this.idAFN = id;
         this.edoInicial = null;
         this.edosAFN = new Set();
         this.edosAceptacion = new Set();
@@ -35,7 +35,7 @@ export default class AFN{
 
     //  Constructor con un caracter
     constructor1(s1){
-        console.log("Se uso constructor 1");
+        //console.log("Se uso constructor 1");
         let e1 = new Estado(++this.noEdo);                  //  Creamos los nuevos estados
         let e2 = new Estado(++this.noEdo);
         let t = new Transicion(s1, e2);         //  Creamos la nueva transicion
@@ -49,7 +49,7 @@ export default class AFN{
     }
 
     constructor2(s1, s2){
-        console.log("Se uso constructor 2");
+        //console.log("Se uso constructor 2");
         const i = s1.charCodeAt(0);         //  Valores ascii de los simbolos
         const j = s2.charCodeAt(0);
         
@@ -62,7 +62,7 @@ export default class AFN{
         e2.setAceptacion(true);             //  Asignar estado de aceptacion
         
         for(let k = i; k <= j; k++){        //  Agregar al alfabeto
-            this.alfabeto.add(k);
+            this.alfabeto.add(String.fromCharCode(k));
         }
 
         this.edosAFN.add(e1);               //  Agregar estados

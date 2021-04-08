@@ -18,11 +18,11 @@ import AFN from "./controller/AFN";
 
 
 function App() {
-    const [automatas,setAutomatas] = useState([new AFN('a'),new AFN('b')]);
+    const [automatas,setAutomatas] = useState([]);
 
-    const agregarAutomata = (Automata) =>{
-        console.log("Se agrego un automata",Automata);
-        console.log("la lista actual es",automatas);        
+    const agregarAutomata = (Automata) => {
+        // console.log("Se agrego un automata",Automata);
+        // console.log("la lista actual es",automatas);        
         setAutomatas(automatas.concat(Automata));
     }    
     return (
