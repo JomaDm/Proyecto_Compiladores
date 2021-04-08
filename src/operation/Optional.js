@@ -2,12 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const Optional = ({automatas}) => {
+const Optional = ({automatas, eliminarAutomata}) => {
     return (  
         <div className="optional">
             <h2>Automatas</h2>
-			<Table
+			<Table 
                 automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">
