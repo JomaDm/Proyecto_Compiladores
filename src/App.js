@@ -4,12 +4,11 @@ import New from './operation/New'
 import Join from './operation/Join'
 import Concatenate from './operation/Concatenate'
 import Transitive from './operation/Transitive'
-import Star from './operation/Star'
+import Star from './operation/Kleene'
 import Optional from './operation/Optional'
 import LexiconAnalyzer_AFNs from './operation/LexiconAnalyzer_AFNs'
 import AFN_to_AFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
-import Operation from './components/operations'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -34,7 +33,7 @@ function App() {
                         <Route exact path="/operation/Transitive">
                             <Transitive></Transitive>
                         </Route>
-                        <Route exact path="/operation/Star">
+                        <Route exact path="/operation/Kleene">
                             <Star></Star>
                         </Route>
                         <Route exact path="/operation/Optional">
