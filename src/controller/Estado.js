@@ -12,6 +12,14 @@ export default class Estado {
         return this.idEstado;
     }
 
+    printStringEdo(){
+        let aux = "";
+        this.transiciones.forEach((tran)=> {
+            aux += String(`(${this.idEstado}) => ${tran.toStringTran()} \n`)
+        })
+        return aux;
+    }
+
     setIdEstado(idEstado){  
         this.idEstado = idEstado;   
     }

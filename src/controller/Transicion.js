@@ -46,10 +46,29 @@ export default class Transicion {
     }
 
     getEdo_Trans(simb){
-        if(this.simb_inicial.charCodeAt(0) >= simb && this.simb_final <= simb.charCodeAt(0)){
-            return this.edo_Trans;
+        let aux = simb.charCodeAt(0);
+        if(typeof this.simb_final !== 'string'){
+            if(this.simb_inicial.charCodeAt(0) === aux){
+                return String(this.edo_Trans);
+            }
         }
+        if(typeof this.simb_final === 'string'){
+            if(this.simb_inicial.charCodeAt(0) <= aux && this.simb_final.charCodeAt(0) >= aux){
+                return String(this.edo_Trans);
+            }
+        }
+        
         return null;
     } 
+
+    toStringTran(){
+        let aux  = this.getEdo_Trans(this.simb_inicial);
+        if(typeof this.simb_final === 'string' && this.simb_final !== null){
+            return String(`(${this.simb_inicial} - ${this.simb_final} -> ${aux})`);
+        }
+        else{
+            return String(`(${this.simb_inicial} -> ${aux}})`)
+        }
+    }
 
 }

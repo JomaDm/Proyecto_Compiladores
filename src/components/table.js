@@ -16,6 +16,11 @@ const Table = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
                     for (let edo of automata.edosAceptacion) {
                         strEdosAc.push(edo.toStringEdo())                        
                     }
+
+                    let strTran = [];
+                    for(let edo of automata.edosAFN){
+                        strTran.push(edo.printStringEdo());
+                    }
                    
 
                     return (
@@ -27,8 +32,9 @@ const Table = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
                             <p>Edos aceptación: [ {strEdosAc.join(' , ')} ]</p>
                             <br/>
                             <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>
-                            <button className="button" id="v" onClick={() => mostrarTablaAutomata(automata)}>Visualizar Automata</button>
-                        </div>
+                            <p>{strTran}</p>
+                            
+                        </div>  
                     );
                 })
             }
