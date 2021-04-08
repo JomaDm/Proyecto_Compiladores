@@ -10,10 +10,12 @@ const Join = ({automatas,eliminarAutomata,agregarAutomata,mostrarTablaAutomata})
 
     const handleClickUnir = (event) => {
         event.preventDefault();
-        automatas[op1].unirAFNs(automatas[op2]);
-        //agregarAutomata(nvoAutomata)
-        setOp1("-1");
-        setOp2("-1");
+        console.log(op1);
+        console.log(op2);
+        let automata1 = automatas.find(automata => automata.idAFN == op1);
+        let automata2 = automatas.find(automata => automata.idAFN == op1);
+        automata1.unirAFNs(automata2);
+        
     }
 
     return (  

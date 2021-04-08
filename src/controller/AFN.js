@@ -81,13 +81,13 @@ export default class AFN{
         e1.addTransicion(t2);
 
         this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion
-            edo = new Transicion(epsilon, e2);
-            //edo.setAceptacion(false);
+            //edo = new Transicion(epsilon, e2);
+            edo.setAceptacion(false);
         });
 
         AFN2.edosAFN.forEach(edo => {
-            edo = new Transicion(epsilon, e2);
-            //edo.setAceptacion(false);
+            //edo = new Transicion(epsilon, e2);
+            edo.setAceptacion(false);
         });
 
         this.edosAceptacion.clear();
