@@ -2,12 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const AFNtoAFD = ({automatas}) => {
+const AFNtoAFD = ({automatas, eliminarAutomata}) => {
     return (  
         <div className="LexiconAnalyzer_AFNs">
             <h2>Automatas</h2>
 			<Table 
                 automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">

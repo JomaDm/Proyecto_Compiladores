@@ -1,4 +1,4 @@
-const Table = ({automatas}) => {
+const Table = ({automatas, eliminarAutomata}) => {
     
     return (
         <div className="table-list">
@@ -25,6 +25,8 @@ const Table = ({automatas}) => {
                             <p>Estados: [ {strEdos.join(' , ')} ]</p>
                             <p>Edo inicial: [ {automata.edoInicial.toStringEdo()} ]</p>
                             <p>Edos aceptación: [ {strEdosAc.join(' , ')} ]</p>
+                            <br/>
+                            <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>
                         </div>
                     );
                 })

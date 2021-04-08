@@ -2,12 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const Transitive = ({automatas}) => {
+const Transitive = ({automatas, eliminarAutomata}) => {
     return (  
         <div className="transitive">
             <h2>Automatas</h2>
-			<Table
+			<Table 
                 automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">

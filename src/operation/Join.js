@@ -3,7 +3,7 @@ import Table from "../components/table"
 import View from "../components/view"
 import { useState } from "react";
 
-const Join = ({automatas,agregarAutomata}) => {
+const Join = ({automatas,eliminarAutomata,agregarAutomata}) => {
 
     const [op1, setOp1] = useState(-1);
     const [op2, setOp2] = useState(-1);
@@ -21,6 +21,7 @@ const Join = ({automatas,agregarAutomata}) => {
             <h2>Automatas</h2>
 			<Table 
                 automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">

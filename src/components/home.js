@@ -2,12 +2,13 @@ import Table from './table'
 import Operation from './operations'
 import View from './view'
 
-const Home = ({automatas}) => {
+const Home = ({automatas, eliminarAutomata}) => {
 	return ( 
 		<div className="home">
 			<h2>Automatas</h2>
 			<Table
-				automatas={automatas}
+				automatas={automatas} 
+				eliminarAutomata={eliminarAutomata}
 			></Table>
 			<Operation></Operation>
             <p>Seleccione del menú la opción correspondiente.</p>

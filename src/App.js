@@ -24,7 +24,13 @@ function App() {
         // console.log("Se agrego un automata",Automata);
         // console.log("la lista actual es",automatas);        
         setAutomatas(automatas.concat(Automata));
-    }    
+    }   
+
+    const eliminarAutomata = (id) => {
+        const newAutomatas = automatas.filter(automatas => automatas.idAFN !==id);
+        setAutomatas(newAutomatas);
+    }
+    
     return (
         <Router>
             <div className="App">
@@ -33,54 +39,64 @@ function App() {
                     <Switch>
                         <Route exact path="/">
                             <Home
-                                automatas={automatas}
+                                automatas={automatas} 
+                                eliminarAutomata={eliminarAutomata}
                             ></Home>
                         </Route>
                         <Route exact path="/operation/New">
                             <New 
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
+                                eliminarAutomata={eliminarAutomata}
                             />
                         </Route>
                         <Route exact path="/operation/Join">
                             <Join
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
+                                eliminarAutomata={eliminarAutomata}
                             ></Join>
                         </Route>
                         <Route exact path="/operation/Concatenate">
                             <Concatenate
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></Concatenate>
                         </Route>
                         <Route exact path="/operation/Transitive">
                             <Transitive
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></Transitive>
                         </Route>
                         <Route exact path="/operation/Kleene">
                             <Star
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></Star>
                         </Route>
                         <Route exact path="/operation/Optional">
                             <Optional
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></Optional>
                         </Route>
                         <Route exact path="/operation/LexiconAnalyzer_AFNs">
                             <LexiconAnalyzerAFNs
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></LexiconAnalyzerAFNs>
                         </Route>
                         <Route exact path="/operation/AFN_to_AFD">
                             <AFNtoAFD
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></AFNtoAFD>
                         </Route>
                         <Route exact path="/operation/AnalyzeLexically">
                             <AnalyzeLexically
                                 automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
                             ></AnalyzeLexically>
                         </Route>
                     </Switch>
