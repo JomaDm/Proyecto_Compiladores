@@ -2,11 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const LexiconAnalyzer_AFNs = () => {
+const LexiconAnalyzerAFNs = ({automatas}) => {
     return (  
         <div className="LexiconAnalyzer_AFNs">
             <h2>Automatas</h2>
-			<Table></Table>
+			<Table
+                automatas={automatas}
+            ></Table>
 			<Operations></Operations>
             <form className="create">
                 <h3>Unir AFN's para construir un analizador léxico</h3>
@@ -20,4 +22,4 @@ const LexiconAnalyzer_AFNs = () => {
     );
 }
  
-export default LexiconAnalyzer_AFNs;
+export default LexiconAnalyzerAFNs;

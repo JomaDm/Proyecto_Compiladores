@@ -2,11 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const Concatenate = () => {
+const Concatenate = ({automatas}) => {
     return (  
         <div className="concatenate">
         <h2>Automatas</h2>
-        <Table></Table>
+        <Table
+            automatas={automatas}
+        ></Table>
         <Operations></Operations>
         <form className="create">
             <h3>Concatenar dos automatas</h3>

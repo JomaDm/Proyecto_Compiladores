@@ -11,18 +11,19 @@ Representacion de un automata finito no determinista
 -Objeto para las transiciones
 */  
 
-let idContadorAFN = 0;
-let ep = 'ε';
+let idContadorAFN = -1;
+//let ep = 'ε';
 let epsilon = String.fromCharCode(5);
-let fin = String.fromCharCode(0);
+//let fin = String.fromCharCode(0);
 
 export default class AFN{  
     constructor(s1, s2 = ''){
+        this.noEdo = 0;
         this.idAFN = idContadorAFN++;
         this.edoInicial = null;
-        this.edosAFN = new Set([Estado]);
-        this.edosAceptacion = new Set([Estado]);
-        this.alfabeto = new Set([CharacterData]);
+        this.edosAFN = new Set();
+        this.edosAceptacion = new Set();
+        this.alfabeto = new Set();
 
         if(s2 === ''){
             this.constructor1(s1);
@@ -34,8 +35,9 @@ export default class AFN{
 
     //  Constructor con un caracter
     constructor1(s1){
-        let e1 = new Estado();                  //  Creamos los nuevos estados
-        let e2 = new Estado();
+        console.log("Se uso constructor 1");
+        let e1 = new Estado(++this.noEdo);                  //  Creamos los nuevos estados
+        let e2 = new Estado(++this.noEdo);
         let t = new Transicion(s1, e2);         //  Creamos la nueva transicion
         e1.addTransicion(t);                 //  Agreagamos la transicion al estado del que parte
         e2.setAceptacion(true);             //  Asignamos el estado de aceptacion
@@ -43,19 +45,18 @@ export default class AFN{
         this.edosAFN.add(e1);
         this.edosAFN.add(e2);
         this.edoInicial = e1;
-        this.edosAceptacion.add(e2);
-
-        return this;
+        this.edosAceptacion.add(e2);        
     }
 
     constructor2(s1, s2){
+        console.log("Se uso constructor 2");
         const i = s1.charCodeAt(0);         //  Valores ascii de los simbolos
         const j = s2.charCodeAt(0);
         
         if(!(i <= j))   return null;        //  Comprobacion
         
-        let e1 = new Estado();                  //  Nuevos estados
-        let e2 = new Estado();
+        let e1 = new Estado(++this.noEdo);                  //  Nuevos estados
+        let e2 = new Estado(++this.noEdo);
         let t = new Transicion(s1, s2, e2);     //  Nueva transicion
         e1.addTransicion(t);                 //  Asignar transicion
         e2.setAceptacion(true);             //  Asignar estado de aceptacion
@@ -67,14 +68,12 @@ export default class AFN{
         this.edosAFN.add(e1);               //  Agregar estados
         this.edosAFN.add(e2);
         this.edoInicial = e1;               //  Estado inicial
-        this.edosAceptacion.add(e2);        //  Estado de aceptacion
-
-        return this;
+        this.edosAceptacion.add(e2);        //  Estado de aceptacion        
     }
 
     unirAFNs(AFN2){
-        let e1 = new Estado();                  //  Nuevo edo inicial
-        let e2 = new Estado();                  //  Nuevo edo final
+        let e1 = new Estado(++this.noEdo);                  //  Nuevo edo inicial
+        let e2 = new Estado(++this.noEdo);                  //  Nuevo edo final
         let t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
         let t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
 
@@ -108,7 +107,6 @@ export default class AFN{
             this.alfabeto.add(simb);
         });
 
-        return this;
     }
 
     concatenar(AFN2){
@@ -130,8 +128,7 @@ export default class AFN{
 
         this.edosAceptacion.clear();
         this.edosAceptacion.add(AFN2.edosAceptacion);
-
-        return this;
+        
     }
 
     transitiva(){
@@ -151,8 +148,7 @@ export default class AFN{
         this.edosAceptacion.add(e2);
         this.edosAFN(e1);
         this.edosAFN(e2);
-
-        return this;
+        
     }
 
     kleene(){
@@ -181,8 +177,7 @@ export default class AFN{
         this.edosAceptacion.clear();
         this.edosAceptacion.add(e2);
         this.edoInicial = e1;
-
-        return this;
+        
     }
 
 }

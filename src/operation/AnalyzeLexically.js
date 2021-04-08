@@ -2,11 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const AnalyzeLexically = () => {
+const AnalyzeLexically = ({automatas}) => {
     return (  
         <div className="AnalyzeLexically">
         <h2>Automatas</h2>
-        <Table></Table>
+        <Table
+            automatas={automatas}
+        ></Table>
         <Operations></Operations>
         <form className="create">
             <h3>Analizar lexicamente una cadena</h3>

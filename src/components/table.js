@@ -1,22 +1,34 @@
-const Table = () => {
+const Table = ({automatas}) => {
+    
     return (
         <div className="table-list">
-            <div className="table-preview">
-                <h2>ID</h2>
-                <p>Alfabeto: </p>
-                <p>Estados: </p>
-                <p>Edo inicial: </p>
-                <p>Edos aceptación: </p>
-                <p>Transiciones: </p>
-            </div>
-            <div className="table-preview">
-                <h2>ID</h2>
-                <p>Alfabeto: </p>
-                <p>Estados: </p>
-                <p>Edo inicial: </p>
-                <p>Edos aceptación: </p>
-                <p>Transiciones: </p>
-            </div>
+            {   
+                automatas.map( automata  => {                    
+
+                    let strEdos = [];
+                    console.log(automata.edosAFN);
+                    for (let edo of automata.edosAFN) {
+                        strEdos.push(edo.toStringEdo())                        
+                    }
+
+                    let strEdosAc = [];
+                    console.log(automata.edosAceptacion);
+                    for (let edo of automata.edosAceptacion) {
+                        strEdosAc.push(edo.toStringEdo())                        
+                    }
+                    
+
+                    return (
+                        <div className="table-preview" key={automata.idAFN}>
+                            <h2>ID {automata.idAFN}</h2>
+                            <p>Alfabeto: [ {Array.from(automata.alfabeto).join(',')} ]</p>
+                            <p>Estados: [ {strEdos.join(' , ')} ]</p>
+                            <p>Edo inicial: [ {automata.edoInicial.toStringEdo()} ]</p>
+                            <p>Edos aceptación: [ {strEdosAc.join(' , ')} ]</p>
+                        </div>
+                    );
+                })
+            }
         </div>
     );
 }

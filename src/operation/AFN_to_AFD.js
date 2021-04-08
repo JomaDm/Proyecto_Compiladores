@@ -2,11 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const AFN_to_AFD = () => {
+const AFNtoAFD = ({automatas}) => {
     return (  
         <div className="LexiconAnalyzer_AFNs">
             <h2>Automatas</h2>
-			<Table></Table>
+			<Table 
+                automatas={automatas}
+            ></Table>
 			<Operations></Operations>
             <form className="create">
                 <h3>Convertir un AFN a un AFD</h3>
@@ -19,4 +21,4 @@ const AFN_to_AFD = () => {
     );
 }
  
-export default AFN_to_AFD;
+export default AFNtoAFD;

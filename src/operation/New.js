@@ -2,24 +2,29 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 import AFN  from "../controller/AFN"
+import { useState } from "react";
 
 
-const New = ({automatas,agregarAutomata}) => {
-    console.log(automatas);
-    console.log(agregarAutomata);
+const New = ({automatas,agregarAutomata}) => {    
+
+    let [cadenaAutomata,setCadenaAutomata] = useState('');
+
     const crearObjAutomata = (cadena) => {
+        console.log(cadena);
         if (cadena.includes("-")) {
             let letras = cadena.split("-")
-            return AFN(letras[0],letras[1]);
+            return new AFN(letras[0],letras[1]);
         }else{
-            return AFN(cadena);
+            return new AFN(cadena);
         }
     }
 
     return (  
         <div className="new">
             <h2>Automatas</h2>
-			<Table></Table>
+			<Table 
+                automatas={automatas}
+            ></Table>
 			<Operations></Operations>
             <form className="create">
             <h3>Crear un nuevo automatas simples</h3>
@@ -28,10 +33,12 @@ const New = ({automatas,agregarAutomata}) => {
                 <input 
                     type="text" 
                     id="input-new"
-                ></input>
+                    value={cadenaAutomata}
+                    onChange={(event) => setCadenaAutomata(event.target.value)}
+                ></input>                
                 <button 
                     className="boton"
-                    onClick={() => agregarAutomata(crearObjAutomata(document.getElementById("input-new").value))}
+                    onClick={() => agregarAutomata(crearObjAutomata(cadenaAutomata))}
                 >Crear nuevo automata</button>
             </form>
 			<View></View>

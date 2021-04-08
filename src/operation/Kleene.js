@@ -2,11 +2,13 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const Kleene = () => {
+const Kleene = ({automatas}) => {
     return (  
         <div className="kleene">
             <h2>Automatas</h2>
-			<Table></Table>
+			<Table
+                automatas={automatas}
+            ></Table>
 			<Operations></Operations>
             <form className="create">
                 <h3>Aplicar cerradura de Kleene a un automata</h3>
