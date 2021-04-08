@@ -67,6 +67,16 @@
     cursor: pointer;
 }
 
+.table-preview #v {
+    background: #000000;
+    color: #fff;
+    border: 0;
+    margin: 3px;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 /**************************/
 /*Operations*/
 .operations{

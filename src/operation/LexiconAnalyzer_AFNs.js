@@ -2,13 +2,14 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import View from "../components/view"
 
-const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata}) => {
+const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
     return (  
         <div className="LexiconAnalyzer_AFNs">
             <h2>Automatas</h2>
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
+                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">
@@ -18,7 +19,9 @@ const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata}) => {
                     <input type="text" id="input-id1"></input>
                     <button className="boton">Unir automatas</button>
             </form>
-			<View></View>
+			<View 
+				mostrarTablaAutomata={mostrarTablaAutomata}>
+			</View>
         </div>
     );
 }
