@@ -9,6 +9,7 @@ import Star from './operation/Kleene'
 import Optional from './operation/Optional'
 import LexiconAnalyzerAFNs from './operation/LexiconAnalyzer_AFNs'
 import AFNtoAFD from './operation/AFN_to_AFD'
+import Test from './operation/Test'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -17,7 +18,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
     const [automatas,setAutomatas] = useState([]);
-    const [visAuto,setVisAuto] = useState(null);
 
     const agregarAutomata = (Automata) => {      
         setAutomatas(automatas.concat(Automata));
@@ -112,6 +112,13 @@ function App() {
                                 eliminarAutomata={eliminarAutomata}
                                 mostrarTablaAutomata={mostrarTablaAutomata}
                             ></AnalyzeLexically>
+                        </Route>
+                        <Route exact path="/operation/Test">
+                            <Test
+                                automatas={automatas}
+                                eliminarAutomata={eliminarAutomata}
+                                mostrarTablaAutomata={mostrarTablaAutomata}
+                            ></Test>
                         </Route>
                     </Switch>
                 </div>

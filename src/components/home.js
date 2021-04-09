@@ -1,6 +1,5 @@
 import Table from './table'
 import Operation from './operations'
-import View from './view'
 
 const Home = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
 	return ( 
