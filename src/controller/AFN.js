@@ -120,7 +120,10 @@ export default class AFN{
         let aux = this;
         let aux1 = AFN2;
         aux.idAFN = id;
-        aux.edosAceptacion.forEach(edo => {                //
+        console.log(aux.edoInicial.getTransiciones())  
+        console.log(aux1.edoInicial.getTransiciones())  
+        aux.edosAceptacion.forEach(edo => {       
+            console.log(aux1.edoInicial.getTransiciones())        
             edo.addTransicion(aux1.edoInicial.getTransiciones());
             edo.setAceptacion(false);
         });
@@ -242,6 +245,42 @@ export default class AFN{
         }
         
         return Resultado;
+    }
+
+    mover(edo, simb){
+        let c = new Set([Estado]);
+        let aux = new Estado();
+        c.clear();
+
+        edo.transiciones.forEach(t => {
+            aux = t.getEdo_Trans(simb);
+            if(aux !== null)
+                c.add(aux);
+        });
+        return c;
+    }
+
+    moverEdos(edos, simb){
+        let c = new Set([Estado]);
+        let aux = new Estado();
+        c.clear();
+
+        edos.forEach(edo => {
+            edo.transiciones.forEach(t => {
+                aux = t.getEdo_Trans(simb);
+                if(aux !== null)
+                    c.add(aux);
+            });
+        });
+
+        return c;
+    }
+
+    irA(edos, simb){
+        let c = new Set([Estado]);
+        c.clear();
+        c = this.cerraduraEpsilonEdos(this.moverEdos(edos, simb));
+        return c;
     }
 
      

@@ -27,6 +27,8 @@ El programa debe tener un menú con las siguientes opciones:
 
 -   Analizar lexicamente una cadena
 
+-   Probar analizador lexico
+
 -   Fin
 
 
@@ -39,10 +41,12 @@ El programa debe tener un menú con las siguientes opciones:
 
 -	Verificar que los rangos para crear un nuevo automata sean correctos
 
--       Revisar porque se modifican los originales y no las copias como se especifica en las funciones para concatenar y transitiva 
+-   Revisar porque se modifican los originales y no las copias como se especifica en las funciones para concatenar y transitiva 
 
--       Agregar nuevos automatas al arreglo
+-   Agregar nuevos automatas al arreglo
 
--       Imprimir bien las transiciones
+-   Imprimir bien las transiciones
 
--       Debe existir una funcion para reasignar los id de los estados pues se duplican 
+-   Debe existir una funcion para reasignar los id de los estados pues se duplican 
+
+-   AFD no necesita ser un objeto, solo se necesita la tabla(la ultima columna representa si el estado es de aceptación y el token) y que el analizador lexico haga uso de la tabla(texto plano) para que se mantenga generico

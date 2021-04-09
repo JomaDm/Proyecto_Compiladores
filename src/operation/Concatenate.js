@@ -14,6 +14,7 @@ const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, 
         let automata2 = new AFN();
         automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
         automata2 = automatas.find(automatas => automatas.idAFN === parseInt(op2, 10));
+        console.log(automata2.edoInicial.getTransiciones())
         let auto = automata1.concatenar(automata2, idAutomata);
         idAutomataNew(idAutomata++);
         console.log(auto)
