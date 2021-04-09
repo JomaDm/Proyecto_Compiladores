@@ -3,7 +3,7 @@ import Table from "../components/table"
 import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Optional = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata}) => {
+const Optional = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickOpcional = (event) =>{
@@ -11,7 +11,8 @@ const Optional = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAut
         let automata1 = new AFN();
         automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
         let auto = automata1;
-        console.log(auto.optional())
+        console.log(auto.optional(idAutomata))
+        idAutomataNew(idAutomata++);
         //agregarAutomata(auto)
     }
 
@@ -21,7 +22,6 @@ const Optional = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAut
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
-                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">

@@ -3,7 +3,7 @@ import Table from "../components/table"
 import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Test = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata}) => {
+const Test = ({automatas, agregarAutomata, eliminarAutomata}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickTransitiva = (event) =>{
@@ -22,7 +22,6 @@ const Test = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomat
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
-                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">

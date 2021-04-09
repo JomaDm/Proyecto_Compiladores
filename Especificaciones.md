@@ -44,3 +44,5 @@ El programa debe tener un menú con las siguientes opciones:
 -       Agregar nuevos automatas al arreglo
 
 -       Imprimir bien las transiciones
+
+-       Debe existir una funcion para reasignar los id de los estados pues se duplican 

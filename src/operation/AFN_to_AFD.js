@@ -1,15 +1,13 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import View from "../components/view"
 
-const AFNtoAFD = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
+const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata}) => {
     return (  
         <div className="LexiconAnalyzer_AFNs">
             <h2>Automatas</h2>
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
-                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create">
@@ -18,9 +16,6 @@ const AFNtoAFD = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
                     <input type="text" id="input-id1"></input>
                     <button className="boton">Convertir automata</button>
             </form>
-			<View 
-				mostrarTablaAutomata={mostrarTablaAutomata}>
-			</View>
         </div>
     );
 }

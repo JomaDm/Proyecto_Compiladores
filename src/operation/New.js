@@ -1,11 +1,10 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import View from "../components/view"
 import AFN  from "../controller/AFN"
 import { useState } from "react";
 
 
-const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata}) => {    
+const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {    
 
     const [cadenaAutomata,setCadenaAutomata] = useState('');
     const [contadorId, setContadorId] = useState(0);
@@ -17,13 +16,13 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata
             return new AFN(
                 letras[0],
                 letras[1],
-                contadorId
+                idAutomata++
             );
         }else{
             return new AFN(
                 cadena,
                 '',
-                contadorId
+                idAutomata++
             );
         }
     }
@@ -32,6 +31,7 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata
         event.preventDefault();
         agregarAutomata(crearObjAutomata(cadenaAutomata))
         setCadenaAutomata('');
+        idAutomataNew(idAutomata++);
     }
 
     return (  
@@ -40,7 +40,6 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata
 			<Table 
                 automatas={automatas}
                 eliminarAutomata={eliminarAutomata}
-                mostrarTablaAutomata={mostrarTablaAutomata}
             ></Table>
 			<Operations></Operations>
             <form className="create" autoComplete="off">
@@ -58,9 +57,6 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata
                         onClick={(event) => {handleClickAgregarAutomata(event)}}
                     >Crear nuevo automata</button>
             </form>
-			<View 
-				mostrarTablaAutomata={mostrarTablaAutomata}>
-			</View>
         </div>
     )
 }

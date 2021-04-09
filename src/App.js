@@ -18,6 +18,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
     const [automatas,setAutomatas] = useState([]);
+    const [idAutomata,setIdAutomata] = useState(0);
 
     const agregarAutomata = (Automata) => {      
         setAutomatas(automatas.concat(Automata));
@@ -28,8 +29,8 @@ function App() {
         setAutomatas(newAutomatas);
     }
 
-    const mostrarTablaAutomata = (automata) => {
-        console.log(automata)
+    const idAutomataNew = (idAutomata) => {
+        setIdAutomata(idAutomata);
     }
     
     return (
@@ -49,7 +50,8 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
                             />
                         </Route>
                         <Route exact path="/operation/Join">
@@ -57,7 +59,6 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Join>
                         </Route>
                         <Route exact path="/operation/Concatenate">
@@ -65,7 +66,8 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
                             ></Concatenate>
                         </Route>
                         <Route exact path="/operation/Transitive">
@@ -73,7 +75,8 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
                             ></Transitive>
                         </Route>
                         <Route exact path="/operation/Kleene">
@@ -81,7 +84,8 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
                             ></Star>
                         </Route>
                         <Route exact path="/operation/Optional">
@@ -89,35 +93,36 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
                             ></Optional>
                         </Route>
                         <Route exact path="/operation/LexiconAnalyzer_AFNs">
                             <LexiconAnalyzerAFNs
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
                             ></LexiconAnalyzerAFNs>
                         </Route>
                         <Route exact path="/operation/AFN_to_AFD">
                             <AFNtoAFD
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
                             ></AFNtoAFD>
                         </Route>
                         <Route exact path="/operation/AnalyzeLexically">
                             <AnalyzeLexically
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
                             ></AnalyzeLexically>
                         </Route>
                         <Route exact path="/operation/Test">
                             <Test
                                 automatas={automatas}
+                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                mostrarTablaAutomata={mostrarTablaAutomata}
                             ></Test>
                         </Route>
                     </Switch>

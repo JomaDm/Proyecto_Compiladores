@@ -1,4 +1,4 @@
-const Table = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
+const Table = ({automatas, eliminarAutomata}) => {
 
     return (
         <div className="table-list">

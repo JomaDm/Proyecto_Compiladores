@@ -3,7 +3,7 @@ import Table from "../components/table"
 import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, mostrarTablaAutomata}) => {
+const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
 
     const [op1, setOp1] = useState(-1);
     const [op2, setOp2] = useState(-1);
@@ -14,7 +14,8 @@ const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, mostrarTabla
         let automata2 = new AFN();
         automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
         automata2 = automatas.find(automatas => automatas.idAFN === parseInt(op2, 10));
-        let auto = automata1.concatenar(automata2);
+        let auto = automata1.concatenar(automata2, idAutomata);
+        idAutomataNew(idAutomata++);
         console.log(auto)
         // agregarAutomata(auto)
     }
@@ -25,7 +26,6 @@ const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, mostrarTabla
         <Table 
             automatas={automatas}
             eliminarAutomata={eliminarAutomata}
-            mostrarTablaAutomata={mostrarTablaAutomata}
         ></Table>
         <Operations></Operations>
         <form className="create">

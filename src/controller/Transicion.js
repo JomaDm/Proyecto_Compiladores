@@ -54,7 +54,7 @@ export default class Transicion {
         }
         if(typeof this.simb_final === 'string'){
             if(this.simb_inicial.charCodeAt(0) <= aux && this.simb_final.charCodeAt(0) >= aux){
-                return this.edo_Trans.toStringEdo();            
+                return this.edo_Trans;            
             }
         }
         
@@ -63,11 +63,11 @@ export default class Transicion {
 
     toStringTran(){
         let aux  = this.getEdo_Trans(this.simb_inicial);
-        if(typeof this.simb_final === 'string' && this.simb_final !== null){
-            return String(`(${this.simb_inicial} - ${this.simb_final} -> ${aux})`);
+        if(typeof this.simb_final === 'string' && typeof this.simb_final === 'string' && this.simb_final !== this.simb_inicial){
+            return String(`(${this.simb_inicial} - ${this.simb_final} -> ${aux.toStringEdo()})`);
         }
         else{
-            return String(`(${this.simb_inicial} -> ${aux}})`)
+            return String(`(${this.simb_inicial} -> ${aux.toStringEdo()})`)
         }
     }
 

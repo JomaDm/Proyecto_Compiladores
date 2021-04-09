@@ -1,15 +1,13 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import View from "../components/view"
 
-const AnalyzeLexically = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
+const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata}) => {
     return (  
         <div className="AnalyzeLexically">
         <h2>Automatas</h2>
         <Table 
             automatas={automatas}
             eliminarAutomata={eliminarAutomata}
-            mostrarTablaAutomata={mostrarTablaAutomata}
         ></Table>
         <Operations></Operations>
         <form className="create">
@@ -20,9 +18,6 @@ const AnalyzeLexically = ({automatas, eliminarAutomata, mostrarTablaAutomata}) =
                 <input type="text" id="input-id2"></input>
                 <button className="boton">Analizar cadena</button>
         </form>
-        <View 
-			mostrarTablaAutomata={mostrarTablaAutomata}>
-		</View>
     </div>
     );
 }
