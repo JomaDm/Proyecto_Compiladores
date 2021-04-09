@@ -16,7 +16,6 @@ Representacion de un automata finito no determinista
 let epsilon = String.fromCharCode(5);
 //let fin = String.fromCharCode(0);
 let id = 0;
-let idedo = 0;
 
 export default class AFN{      
     constructor(s1, s2 = '',){
@@ -191,5 +190,54 @@ export default class AFN{
         return aux;
     }
 
+    cerraduraEpsilon(e){
+        let Resultado = new Set([Estado]);
+        let Stack = [];
+        let edo = new Estado();
+        let aux = new Estado();
+
+        Stack.push(e);
+
+        while(Stack.length !== 0){
+            aux = Stack.pop();
+            Resultado.add(aux);
+
+            aux.transiciones.forEach(t => {
+                edo = t.getTransiciones(epsilon);
+                if(edo != null)
+                    if(!Resultado.has(edo))
+                        Stack.push(edo)
+            })
+        }
+        
+        return Resultado;
+    }
+
+    cerraduraEpsilonEdos(e){
+        let Resultado = new Set([Estado]);
+        let Stack = [];
+        let edo = new Estado();
+        let aux = new Estado();
+
+        e.forEach(ed => {
+            Stack.push(ed);
+        })
+        
+        while(Stack.length !== 0){
+            aux = Stack.pop();
+            Resultado.add(aux);
+
+            aux.transiciones.forEach(t => {
+                edo = t.getTransiciones(epsilon);
+                if(edo != null)
+                    if(!Resultado.has(edo))
+                        Stack.push(edo)
+            })
+        }
+        
+        return Resultado;
+    }
+
+     
 }
 
