@@ -12,10 +12,14 @@ const Join = ({automatas,eliminarAutomata,agregarAutomata,mostrarTablaAutomata})
         event.preventDefault();
         console.log(op1);
         console.log(op2);
-        let automata1 = automatas.find(automata => automata.idAFN == op1);
-        let automata2 = automatas.find(automata => automata.idAFN == op1);
-        automata1.unirAFNs(automata2);
-        
+        if(op1 !== "-1" && op2 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));
+            let automata2 = automatas.find(automata => String(automata.idAFN) === String(op2));
+            automata1.unirAFNs(automata2);
+            eliminarAutomata(Number(op2));            
+        }                
+        setOp1("-1");
+        setOp2("-1");
     }
 
     return (  

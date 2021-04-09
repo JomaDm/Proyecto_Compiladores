@@ -74,41 +74,48 @@ export default class AFN{
     }
 
     unirAFNs(AFN2){
-        let e1 = new Estado(++this.noEdo);                  //  Nuevo edo inicial
-        let e2 = new Estado(++this.noEdo);                  //  Nuevo edo final
+                
+        let auxId = this.noEdo+2;        
+        AFN2.edosAFN.forEach( edo => edo.setIdEstado(auxId++)); 
+        this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
+        let e1 = new Estado(1);                  //  Nuevo edo inicial
+        let e2 = new Estado(auxId++);                  //  Nuevo edo final
         let t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
         let t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
-
+        
         e1.addTransicion(t1);                    //  Nuevas transiciones
         e1.addTransicion(t2);
 
-        this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion
-            //edo = new Transicion(epsilon, e2);
-            edo.setAceptacion(false);
-        });
+        AFN2.alfabeto.forEach( edo => {
+            this.alfabeto.add(edo);                
+        })        
 
         AFN2.edosAFN.forEach(edo => {
-            //edo = new Transicion(epsilon, e2);
+            this.edosAFN.add(edo); 
+        });
+        
+        
+        let t3 = new Transicion(epsilon, e2);      //  Transicion al fin        
+
+        this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion                  
+            edo.addTransicion(t3);      
+            edo.setAceptacion(false);
+        });        
+        this.edosAceptacion = new Set();    //Borramos los estados de aceptación actuales del automata1
+
+        AFN2.edosAceptacion.forEach(edo => {            
+            edo.addTransicion(t3);        
             edo.setAceptacion(false);
         });
-
-        this.edosAceptacion.clear();
-        AFN2.edosAceptacion.clear();
+        AFN2.edosAceptacion = new Set();
+        
 
         this.edoInicial = e1;                   //  Asignar nuevo edo inicial
         e2.setAceptacion(true);                 //  Asignar nuevo edo de aceptacion
         this.edosAceptacion.add(e2);
         this.edosAFN.add(e1);                   //  Agregar nuevos edos
-        this.edosAFN.add(e2);
-        
-        // AFN2.edosAFN.forEach(edo => {
-        //     this.edosAFN.add(edo);
-        // });
-
-        AFN2.alfabeto.forEach(simb => {
-            this.alfabeto.add(simb);
-        });
-        return this;
+        this.edosAFN.add(e2);        
+                
     }
 
     concatenar(AFN2){
