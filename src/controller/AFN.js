@@ -199,8 +199,7 @@ export default class AFN{
 
     cerraduraEpsilon(e){
         let Resultado = new Set([Estado]);
-        let Stack = [];
-        let edo = new Estado();
+        let Stack = [];        
         let aux = new Estado();
 
         Stack.push(e);
@@ -210,7 +209,7 @@ export default class AFN{
             Resultado.add(aux);
 
             aux.transiciones.forEach(t => {
-                edo = t.getTransiciones(epsilon);
+                let edo = t.getTransiciones(epsilon);
                 if(edo != null)
                     if(!Resultado.has(edo))
                         Stack.push(edo)
@@ -222,8 +221,7 @@ export default class AFN{
 
     cerraduraEpsilonEdos(e){
         let Resultado = new Set([Estado]);
-        let Stack = [];
-        let edo = new Estado();
+        let Stack = [];        
         let aux = new Estado();
 
         e.forEach(ed => {
@@ -235,7 +233,7 @@ export default class AFN{
             Resultado.add(aux);
 
             aux.transiciones.forEach(t => {
-                edo = t.getTransiciones(epsilon);
+                let edo = t.getTransiciones(epsilon);
                 if(edo != null)
                     if(!Resultado.has(edo))
                         Stack.push(edo)
