@@ -14,11 +14,17 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
             setContadorId(contadorId+1);
             if (cadena.includes("-")) {
                 let letras = cadena.split("-")
-                return new AFN(
-                    letras[0],
-                    letras[1],
-                    idAutomata++
-                );
+                if(letras[0].charCodeAt(0) <= letras[1].charCodeAt(0)){
+                    let automata = new AFN(
+                        letras[0],
+                        letras[1],
+                        idAutomata++
+                    );
+                    console.log("Automata:",automata);
+                    return automata;
+                }else{
+                    return null
+                }
             }else{
                 return new AFN(
                     cadena,
@@ -35,19 +41,14 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
         let aux = crearObjAutomata(cadenaAutomata);
         event.preventDefault();
         if(aux !== null){
-            agregarAutomata(aux)
-            setCadenaAutomata('');
+            agregarAutomata(aux)            
             idAutomataNew(idAutomata++);
         }
+        setCadenaAutomata('');
     }
 
     return (  
-        <div className="new">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="new">            
 			<Operations></Operations>
             <form className="create" autoComplete="off">
                 <h3>Crear un nuevo automatas simples</h3>
@@ -64,6 +65,11 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
                         onClick={(event) => {handleClickAgregarAutomata(event)}}
                     >Crear nuevo automata</button>
             </form>
+            <h2>Automatas</h2>	
+            <Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>
         </div>
     )
 }

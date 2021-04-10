@@ -1,6 +1,5 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import AFN from "../controller/AFN"
 import { useState } from "react";
 
 const Transitive = ({automatas, eliminarAutomata}) => {
@@ -18,12 +17,7 @@ const Transitive = ({automatas, eliminarAutomata}) => {
 
 
     return (  
-        <div className="transitive">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="transitive">            
 			<Operations></Operations>
             <form className="create">
                 <h3>Aplicar cerradura transitiva a un automata</h3>
@@ -40,6 +34,11 @@ const Transitive = ({automatas, eliminarAutomata}) => {
                 </select>
                 <button className="boton" onClick={(event) => handleClickTransitiva(event)}>Aplicar cerradura transitiva</button>
             </form>
+            <h2>Automatas</h2>
+			<Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>
         </div>
     );
 }

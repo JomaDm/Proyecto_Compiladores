@@ -17,12 +17,7 @@ const Test = ({automatas, agregarAutomata, eliminarAutomata}) => {
 
 
     return (  
-        <div className="transitive">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="transitive">            		
 			<Operations></Operations>
             <form className="create">
                 <h3>Aplicar cerradura epsilon</h3>
@@ -39,6 +34,11 @@ const Test = ({automatas, agregarAutomata, eliminarAutomata}) => {
                 </select>
                 <button className="boton" onClick={(event) => handleClickTransitiva(event)}>Aplicar cerradura transitiva</button>
             </form>
+            <h2>Automatas</h2>	
+            <Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>
         </div>
     );
 }

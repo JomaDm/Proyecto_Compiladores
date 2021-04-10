@@ -1,28 +1,23 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Optional = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
+const Optional = ({automatas, eliminarAutomata}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickOpcional = (event) =>{
         event.preventDefault();
-        let automata1 = new AFN();
-        automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
-        let auto = automata1;
-        console.log(auto.optional(idAutomata))
-        idAutomataNew(idAutomata++);
+        console.log(op1);        
+        if(op1 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
+            automata1.optional();                     
+        }                
+        setOp1("-1");  
         //agregarAutomata(auto)
     }
 
     return (  
-        <div className="optional">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="optional">            
 			<Operations></Operations>
             <form className="create">
                 <h3>Aplicar operación opcional a un automata</h3>
@@ -39,6 +34,11 @@ const Optional = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idA
                 </select>
                 <button className="boton" onClick={(event) => handleClickOpcional(event)}>Aplicar operación opcional</button>
             </form>
+            <h2>Automatas</h2>	
+            <Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>
         </div>
     );
 }

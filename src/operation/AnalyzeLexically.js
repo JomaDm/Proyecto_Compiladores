@@ -3,12 +3,7 @@ import Table from "../components/table"
 
 const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata}) => {
     return (  
-        <div className="AnalyzeLexically">
-        <h2>Automatas</h2>
-        <Table 
-            automatas={automatas}
-            eliminarAutomata={eliminarAutomata}
-        ></Table>
+        <div className="AnalyzeLexically">             
         <Operations></Operations>
         <form className="create">
             <h3>Analizar lexicamente una cadena</h3>
@@ -18,6 +13,11 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata}) => {
                 <input type="text" id="input-id2"></input>
                 <button className="boton">Analizar cadena</button>
         </form>
+        <h2>Automatas</h2>	
+        <Table 
+            automatas={automatas}
+            eliminarAutomata={eliminarAutomata}
+        ></Table>
     </div>
     );
 }

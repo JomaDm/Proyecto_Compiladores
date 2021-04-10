@@ -1,6 +1,5 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import AFN from "../controller/AFN"
 import { useState } from "react";
 
 const Concatenate = ({automatas, eliminarAutomata}) => {
@@ -12,7 +11,7 @@ const Concatenate = ({automatas, eliminarAutomata}) => {
         event.preventDefault();
         console.log(op1);
         console.log(op2);
-        if(op1 !== "-1" && op2 !== "-1"){
+        if(op1 !== "-1" && op2 !== "-1" && op1 !== op2){
             let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));
             let automata2 = automatas.find(automata => String(automata.idAFN) === String(op2));
             automata1.concatenar(automata2);
@@ -24,12 +23,7 @@ const Concatenate = ({automatas, eliminarAutomata}) => {
     }
 
     return (  
-        <div className="concatenate">
-        <h2>Automatas</h2>
-        <Table 
-            automatas={automatas}
-            eliminarAutomata={eliminarAutomata}
-        ></Table>
+        <div className="concatenate">         
         <Operations></Operations>
         <form className="create">
             <h3>Concatenar dos automatas</h3>
@@ -56,6 +50,11 @@ const Concatenate = ({automatas, eliminarAutomata}) => {
             </select>
             <button className="boton" onClick={(event) => handleClickConcatenar(event)}>Concatenar automatas</button>
         </form>
+        <h2>Automatas</h2>	
+        <Table 
+            automatas={automatas}
+            eliminarAutomata={eliminarAutomata}
+        ></Table>
     </div>
     );
 }

@@ -1,28 +1,23 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
-import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Kleene = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
+const Kleene = ({automatas, eliminarAutomata}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickKleene = (event) => {
         event.preventDefault();
-        let automata1 = new AFN();
-        automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
-        let auto = automata1;
-        console.log(auto.kleene(idAutomata))
-        idAutomataNew(idAutomata++);
+        console.log(op1);        
+        if(op1 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
+            automata1.kleene();                     
+        }                
+        setOp1("-1");  
         // agregarAutomata(auto)
     }
 
     return (  
-        <div className="kleene">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="kleene">            	
 			<Operations></Operations>
             <form className="create">
                 <h3>Aplicar cerradura de Kleene a un automata</h3>
@@ -40,6 +35,11 @@ const Kleene = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAut
 
                 <button className="boton" onClick={(event) => handleClickKleene(event)}>Aplicar cerradura de Kleene</button>
             </form>
+            <h2>Automatas</h2>	
+            <Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>
         </div>
     );
 }

@@ -40,10 +40,7 @@ function App() {
                 <div className="content">
                     <Switch>
                         <Route exact path="/">
-                            <Home
-                                automatas={automatas} 
-                                eliminarAutomata={eliminarAutomata}
-                            ></Home>
+                            <Home></Home>
                         </Route>
                         <Route exact path="/operation/New">
                             <New 
@@ -56,41 +53,32 @@ function App() {
                         </Route>
                         <Route exact path="/operation/Join">
                             <Join
-                                automatas={automatas}
-                                agregarAutomata={agregarAutomata}
+                                automatas={automatas}                                
                                 eliminarAutomata={eliminarAutomata}
                             ></Join>
                         </Route>
                         <Route exact path="/operation/Concatenate">
                             <Concatenate
-                                automatas={automatas}
-                                agregarAutomata={agregarAutomata}
+                                automatas={automatas}                                
                                 eliminarAutomata={eliminarAutomata}                                
                             ></Concatenate>
                         </Route>
                         <Route exact path="/operation/Transitive">
                             <Transitive
-                                automatas={automatas}
-                                agregarAutomata={agregarAutomata}
+                                automatas={automatas}                                
                                 eliminarAutomata={eliminarAutomata}                                
                             ></Transitive>
                         </Route>
                         <Route exact path="/operation/Kleene">
                             <Star
                                 automatas={automatas}
-                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
-                                idAutomata={idAutomata}
-                                idAutomataNew={idAutomataNew}
                             ></Star>
                         </Route>
                         <Route exact path="/operation/Optional">
                             <Optional
-                                automatas={automatas}
-                                agregarAutomata={agregarAutomata}
-                                eliminarAutomata={eliminarAutomata}
-                                idAutomata={idAutomata}
-                                idAutomataNew={idAutomataNew}
+                                automatas={automatas}                                
+                                eliminarAutomata={eliminarAutomata}                                
                             ></Optional>
                         </Route>
                         <Route exact path="/operation/LexiconAnalyzer_AFNs">

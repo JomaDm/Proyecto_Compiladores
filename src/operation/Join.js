@@ -11,7 +11,7 @@ const Join = ({automatas, agregarAutomata, eliminarAutomata}) => {
         event.preventDefault();
         console.log(op1);
         console.log(op2);
-        if(op1 !== "-1" && op2 !== "-1"){
+        if(op1 !== "-1" && op2 !== "-1" && op1 !== op2){
             let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));
             let automata2 = automatas.find(automata => String(automata.idAFN) === String(op2));
             automata1.unirAFNs(automata2);
@@ -22,12 +22,7 @@ const Join = ({automatas, agregarAutomata, eliminarAutomata}) => {
     }
 
     return (  
-        <div className="join">
-            <h2>Automatas</h2>
-			<Table 
-                automatas={automatas}
-                eliminarAutomata={eliminarAutomata}
-            ></Table>
+        <div className="join">            		
 			<Operations></Operations>
             <form className="create">
                 <h3>Unir dos automatas</h3>
@@ -84,6 +79,11 @@ const Join = ({automatas, agregarAutomata, eliminarAutomata}) => {
                         onClick={(event) => handleClickUnir(event)}    
                     >Unir automatas</button>                    
             </form>
+            <h2>Automatas</h2>	
+            <Table 
+                automatas={automatas}
+                eliminarAutomata={eliminarAutomata}
+            ></Table>            
         </div>
     );
 }

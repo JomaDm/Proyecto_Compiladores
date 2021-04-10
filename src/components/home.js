@@ -1,15 +1,7 @@
-import Table from './table'
-import Operation from './operations'
-
-const Home = ({automatas, eliminarAutomata, mostrarTablaAutomata}) => {
+const Home = () => {
 	return ( 
 		<div className="home">
-			<h2>Automatas</h2>
-			<Table
-				automatas={automatas} 
-				eliminarAutomata={eliminarAutomata}
-			></Table>
-			<Operation></Operation>
+			<h2>Practica 1</h2>			
             <p>Seleccione del menú la opción correspondiente.</p>			
 		</div>
 	);

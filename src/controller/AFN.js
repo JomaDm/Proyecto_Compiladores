@@ -51,8 +51,11 @@ export default class AFN{
         //console.log("Se uso constructor 2");
         const i = s1.charCodeAt(0);         //  Valores ascii de los simbolos
         const j = s2.charCodeAt(0);
-        
-        if(!(i <= j))   return null;        //  Comprobacion
+        //console.log(i,j);
+        if(i > j){
+            //console.log('No es valido');
+            return null;
+        }        //  Comprobacion
         
         let e1 = new Estado(++this.noEdo);                  //  Nuevos estados
         let e2 = new Estado(++this.noEdo);
@@ -130,9 +133,9 @@ export default class AFN{
 
         //aux1.edoInicial.transiciones.clear();
         AFN2.edosAFN.delete(AFN2.edoInicial);
-        let auxId = this.noEdo+1;        
-        AFN2.edosAFN.forEach( edo => edo.setIdEstado(auxId++)); 
-
+        let auxId = this.noEdo;        
+        AFN2.edosAFN.forEach( edo => edo.setIdEstado(++auxId)); 
+        this.noEdo = auxId;
         AFN2.edosAFN.forEach(edo => {
             this.edosAFN.add(edo);
         });
@@ -156,7 +159,7 @@ export default class AFN{
         let e1 = new Estado(1);
         let e2 = new Estado(auxId);
         this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
-
+        this.noEdo = auxId;
         e1.addTransicion(new Transicion(epsilon,'', aux.edoInicial));
 
         aux.edosAceptacion.forEach(edo => {
@@ -175,25 +178,28 @@ export default class AFN{
         return aux;
     }
 
-    kleene(id){
-        let aux = this;
-        let AFN1 = aux.transitiva(id);
-        aux.edosAceptacion.forEach(edo => {
-            AFN1.edoInicial.addTransicion(new Transicion(epsilon, edo));
+    kleene(){        
+        this.transitiva();
+        //console.log(this);
+        this.edosAceptacion.forEach(edo => {
+            this.edoInicial.addTransicion(new Transicion(epsilon,'', edo));
         });
-        return AFN1;
+        //console.log(this);
+        //return AFN1;
     }   
 
-    optional(id){
+    optional(){
         let aux = this;
-        aux.idAFN = id;
-        let e1 = new Estado(++aux.noEdo);
-        let e2 = new Estado(++aux.noEdo);
-        e1.addTransicion(new Transicion(epsilon, aux.edoInicial));
-        e1.addTransicion(new Transicion(epsilon, e2));
+        let auxId = this.noEdo+2;    
+        let e1 = new Estado(1);
+        let e2 = new Estado(auxId);
+        this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
+        this.noEdo = auxId;
+        e1.addTransicion(new Transicion(epsilon,'', aux.edoInicial));
+        e1.addTransicion(new Transicion(epsilon,'', e2));
     
         aux.edosAceptacion.forEach(edo => {
-            edo.addTransicion(new Transicion(epsilon, e2));
+            edo.addTransicion(new Transicion(epsilon,'', e2));
             edo.setAceptacion(false);
         });
 
@@ -204,7 +210,7 @@ export default class AFN{
         aux.edosAceptacion.clear();
         aux.edosAceptacion.add(e2);
         aux.edoInicial = e1;
-        return aux;
+        //return aux;
     }
 
     cerraduraEpsilon(e){
