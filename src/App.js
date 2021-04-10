@@ -29,6 +29,18 @@ function App() {
         setAutomatas(newAutomatas);
     }
 
+    const elminarVariosAutomatas = (lista_id) => {        
+        //console.log(lista_id);
+        let aux_lista = automatas.slice();
+
+        lista_id.forEach( id => {            
+            aux_lista = aux_lista.filter(automatas => Number(automatas.idAFN) !==Number(id));
+        });
+        
+        setAutomatas(aux_lista);
+
+    }
+
     const idAutomataNew = (idAutomata) => {
         setIdAutomata(idAutomata);
     }
@@ -86,6 +98,7 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
+                                elminarVariosAutomatas={elminarVariosAutomatas}
                             ></LexiconAnalyzerAFNs>
                         </Route>
                         <Route exact path="/operation/AFN_to_AFD">

@@ -2,7 +2,6 @@ const Table = ({automatas, eliminarAutomata}) => {
 
     return (
         <div className="table-list">
-            {console.log("Table Keys:")}
             {                                   
                 automatas.map( (automata,index)  => {                    
 
@@ -23,7 +22,7 @@ const Table = ({automatas, eliminarAutomata}) => {
                         strTran.push(edo.printStringEdo());
                     }
                    
-                    console.log(index);
+                    //console.log(index);
                     return (
                         <div className="table-preview" key={index}>
                             <h2>ID {automata.idAFN}</h2>
@@ -34,8 +33,8 @@ const Table = ({automatas, eliminarAutomata}) => {
                             <p>Transiciones: </p>
                             
                             {
-                                strTran.map( tran => {
-                                    return <p key={tran}>{tran}</p>
+                                strTran.map( (tran,index) => {
+                                    return <p key={index}>{tran}</p>
                                 })
                             }
                             <br/>

@@ -2,13 +2,15 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import { useState } from "react";
 
-const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata}) => {
+const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elminarVariosAutomatas}) => {
     const [listaSeleccionados, setListaSeleccionados] = useState([]);
+    const [checklistValues, setChecklistValues] = useState(Array(automatas.length).fill(false));
 
     const verificarSeleccionados = (event) => {
-        setListaSeleccionados(listaSeleccionados.concat(event.target.value));        
+        setListaSeleccionados(listaSeleccionados.concat(event.target.value));   
+        handleCheck(Number(event.target.id))     ;
     }
-
+    
     const handleClickUnirAuto = (event) => {
         event.preventDefault();
         if(listaSeleccionados.length >= 2){
@@ -20,8 +22,15 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata}) => 
             let automata1 = automatasSeleccionados[0];
             automatasSeleccionados = automatasSeleccionados.filter( automata => String(automata.idAFN) !== String(0))        
             automata1.generarAFNEspecial(automatasSeleccionados);        
-            listaSeleccionados.forEach( id => eliminarAutomata(Number(id)))
+            let lista = listaSeleccionados.filter( id => String(id) !== String(0));
+            elminarVariosAutomatas(lista);
+            setChecklistValues(Array(automatas.length).fill(false));
+            setListaSeleccionados([]);
         }
+    }
+    const handleCheck = (index) => {
+        checklistValues[index] = !checklistValues[index];
+        setChecklistValues(checklistValues);
     }
 
     return (  
@@ -29,16 +38,15 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata}) => 
 			<Operations></Operations>
             <form className="create">
                 <h3>Unir AFN's para construir un analizador léxico</h3>
-                <label>Selecciona los automatas a unir:</label>
-                {console.log("Lexic Keys:")}
+                <p>Selecciona los automatas a unir:</p>
                 {
-                    automatas.map((automata,index) => {    
-                        let key = automata.idAFN+automatas.length+1;
-                        console.log(key);                                            
+                    automatas.map((automata,index) => {                                               
                         return (
-                            <div key={key.toString()}> 
+                            <div key={"Check" + String(index)}> 
                                 <label>
-                                <input                                     
+                                <input     
+                                    id={index}
+                                    checked={checklistValues[index]}                                                            
                                     type="checkbox"                                     
                                     value={automata.idAFN}
                                     onChange={(event) => verificarSeleccionados(event)}
