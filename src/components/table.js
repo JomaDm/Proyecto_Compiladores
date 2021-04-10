@@ -34,7 +34,7 @@ const Table = ({automatas, eliminarAutomata}) => {
                             
                             {
                                 strTran.map( tran => {
-                                    return <p>{tran}</p>
+                                    return <p key={tran}>{tran}</p>
                                 })
                             }
                             <br/>

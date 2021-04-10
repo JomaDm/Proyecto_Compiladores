@@ -73,10 +73,11 @@ export default class AFN{
     unirAFNs(AFN2){
                 
         let auxId = this.noEdo+2;        
-        AFN2.edosAFN.forEach( edo => edo.setIdEstado(auxId++)); 
-        this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
+        this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));        
+        AFN2.edosAFN.forEach( edo => edo.setIdEstado(auxId++));         
         let e1 = new Estado(1);                  //  Nuevo edo inicial
-        let e2 = new Estado(auxId++);                  //  Nuevo edo final
+        let e2 = new Estado(auxId);
+        this.noEdo = auxId;                  //  Nuevo edo final
         let t1 = new Transicion(epsilon,'', this.edoInicial);      //  Transicion al incio AFN1
         let t2 = new Transicion(epsilon,'', AFN2.edoInicial);      //  Transicion al inicio AFN2
         
@@ -116,45 +117,51 @@ export default class AFN{
     }
 
     concatenar(AFN2){
-        let aux = this;
-        let aux1 = AFN2;
-        
-        console.log(aux.edoInicial.getTransiciones())  
-        console.log(aux1.edoInicial.getTransiciones())  
-        aux.edosAceptacion.forEach(edo => {       
-            console.log(aux1.edoInicial.getTransiciones())        
-            edo.addTransicion(aux1.edoInicial.getTransiciones());
+        // let aux = this;
+        // let aux1 = AFN2;
+                
+        this.edosAceptacion.forEach(edo => {       
+            //console.log(aux1.edoInicial.getTransiciones())        
+            AFN2.edoInicial.getTransiciones().forEach( tran =>{
+                edo.addTransicion(tran);
+            })            
             edo.setAceptacion(false);
         });
 
         //aux1.edoInicial.transiciones.clear();
-        aux1.edosAFN.delete(aux1.edoInicial);
+        AFN2.edosAFN.delete(AFN2.edoInicial);
+        let auxId = this.noEdo+1;        
+        AFN2.edosAFN.forEach( edo => edo.setIdEstado(auxId++)); 
 
-        aux1.edosAFN.forEach(edo => {
-            aux.edosAFN.add(edo);
+        AFN2.edosAFN.forEach(edo => {
+            this.edosAFN.add(edo);
         });
 
-        aux1.alfabeto.forEach(simb => {
-            aux.alfabeto.add(simb);
+        AFN2.alfabeto.forEach(simb => {
+            this.alfabeto.add(simb);
         });
 
-        aux.edosAceptacion.clear();
-        aux.edosAceptacion.add(aux1.edosAceptacion);
+        this.edosAceptacion.clear();
+        AFN2.edosAceptacion.forEach(edo => {
+            this.edosAceptacion.add(edo);
+        })
+        
         
         //return aux;
     }
 
-    transitiva(id){
+    transitiva(){
         let aux = this;
-        aux.idAFN = id;
-        let e1 = new Estado(++aux.noEdo);
-        let e2 = new Estado(++aux.noEdo);
+        let auxId = this.noEdo+2;                
+        let e1 = new Estado(1);
+        let e2 = new Estado(auxId);
+        this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
 
-        e1.addTransicion(new Transicion(epsilon, aux.edoInicial));
+        e1.addTransicion(new Transicion(epsilon,'', aux.edoInicial));
 
         aux.edosAceptacion.forEach(edo => {
-            edo.addTransicion(new Transicion(epsilon, e2));
-            edo.addTransicion(new Transicion(epsilon, aux.edoInicial));
+            edo.addTransicion(new Transicion(epsilon,'', e2));
+            edo.addTransicion(new Transicion(epsilon,'', aux.edoInicial));
             edo.setAceptacion(false);
         });
 

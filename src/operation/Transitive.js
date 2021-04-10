@@ -3,17 +3,17 @@ import Table from "../components/table"
 import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Transitive = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
+const Transitive = ({automatas, eliminarAutomata}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickTransitiva = (event) =>{
         event.preventDefault();
-        let automata1 = new AFN();
-        automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
-        let auto = automata1;
-        console.log(auto.transitiva(idAutomata))
-        idAutomataNew(idAutomata++);
-        //agregarAutomata(auto)
+        console.log(op1);        
+        if(op1 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
+            automata1.transitiva();                     
+        }                
+        setOp1("-1");        
     }
 
 

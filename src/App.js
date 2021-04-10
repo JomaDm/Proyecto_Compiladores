@@ -65,18 +65,14 @@ function App() {
                             <Concatenate
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
-                                eliminarAutomata={eliminarAutomata}
-                                idAutomata={idAutomata}
-                                idAutomataNew={idAutomataNew}
+                                eliminarAutomata={eliminarAutomata}                                
                             ></Concatenate>
                         </Route>
                         <Route exact path="/operation/Transitive">
                             <Transitive
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
-                                eliminarAutomata={eliminarAutomata}
-                                idAutomata={idAutomata}
-                                idAutomataNew={idAutomataNew}
+                                eliminarAutomata={eliminarAutomata}                                
                             ></Transitive>
                         </Route>
                         <Route exact path="/operation/Kleene">

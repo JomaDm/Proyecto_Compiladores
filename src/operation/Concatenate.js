@@ -3,22 +3,24 @@ import Table from "../components/table"
 import AFN from "../controller/AFN"
 import { useState } from "react";
 
-const Concatenate = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {
+const Concatenate = ({automatas, eliminarAutomata}) => {
 
     const [op1, setOp1] = useState(-1);
     const [op2, setOp2] = useState(-1);
 
     const handleClickConcatenar = (event) => {
         event.preventDefault();
-        let automata1 = new AFN();
-        let automata2 = new AFN();
-        automata1 = automatas.find(automatas => automatas.idAFN === parseInt(op1, 10));
-        automata2 = automatas.find(automatas => automatas.idAFN === parseInt(op2, 10));
-        console.log(automata2.edoInicial.getTransiciones())
-        let auto = automata1.concatenar(automata2, idAutomata);
-        idAutomataNew(idAutomata++);
-        console.log(auto)
-        // agregarAutomata(auto)
+        console.log(op1);
+        console.log(op2);
+        if(op1 !== "-1" && op2 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));
+            let automata2 = automatas.find(automata => String(automata.idAFN) === String(op2));
+            automata1.concatenar(automata2);
+            eliminarAutomata(Number(op2));            
+        }                
+        setOp1("-1");
+        setOp2("-1");
+        
     }
 
     return (  
