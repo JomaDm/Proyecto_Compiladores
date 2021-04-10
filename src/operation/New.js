@@ -10,28 +10,35 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
     const [contadorId, setContadorId] = useState(0);
 
     const crearObjAutomata = (cadena) => {
-        setContadorId(contadorId+1);
-        if (cadena.includes("-")) {
-            let letras = cadena.split("-")
-            return new AFN(
-                letras[0],
-                letras[1],
-                idAutomata++
-            );
+        if(cadena !== ''){
+            setContadorId(contadorId+1);
+            if (cadena.includes("-")) {
+                let letras = cadena.split("-")
+                return new AFN(
+                    letras[0],
+                    letras[1],
+                    idAutomata++
+                );
+            }else{
+                return new AFN(
+                    cadena,
+                    '',
+                    idAutomata++
+                );
+            }
         }else{
-            return new AFN(
-                cadena,
-                '',
-                idAutomata++
-            );
+            return null;
         }
     }
 
     const handleClickAgregarAutomata = (event) => {
+        let aux = crearObjAutomata(cadenaAutomata);
         event.preventDefault();
-        agregarAutomata(crearObjAutomata(cadenaAutomata))
-        setCadenaAutomata('');
-        idAutomataNew(idAutomata++);
+        if(aux !== null){
+            agregarAutomata(aux)
+            setCadenaAutomata('');
+            idAutomataNew(idAutomata++);
+        }
     }
 
     return (  

@@ -1,5 +1,7 @@
 import Estado from './Estado'
 
+let ep = 'ε';
+let epsilon = String.fromCharCode(5);
 export default class Transicion {
     constructor(s1, s2 = '', edo_Trans){
         this.simb_inicial = null;
@@ -63,12 +65,19 @@ export default class Transicion {
 
     toStringTran(){
         let aux  = this.getEdo_Trans(this.simb_inicial);
-        if(typeof this.simb_final === 'string' && typeof this.simb_final === 'string' && this.simb_final !== this.simb_inicial){
+        
+        if(typeof this.simb_final === 'string' && typeof this.simb_inicial === 'string' && this.simb_final !== this.simb_inicial){
             return String(`(${this.simb_inicial} - ${this.simb_final} -> ${aux.toStringEdo()})`);
         }
         else{
-            return String(`(${this.simb_inicial} -> ${aux.toStringEdo()})`)
+            if(this.simb_inicial === epsilon){
+                return String(`(${ep} -> ${aux.toStringEdo()})`)
+            }else{
+                return String(`(${this.simb_inicial} -> ${aux.toStringEdo()})`)
+            }
+            
         }
     }
+
 
 }

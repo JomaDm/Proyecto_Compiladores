@@ -12,7 +12,6 @@ Representacion de un automata finito no determinista
 */  
 
 
-//let ep = 'ε';
 let epsilon = String.fromCharCode(5);
 //let fin = String.fromCharCode(0);
 
@@ -78,8 +77,8 @@ export default class AFN{
         this.edosAFN.forEach( edo => edo.setIdEstado(edo.idEstado+1));
         let e1 = new Estado(1);                  //  Nuevo edo inicial
         let e2 = new Estado(auxId++);                  //  Nuevo edo final
-        let t1 = new Transicion(epsilon, this.edoInicial);      //  Transicion al incio AFN1
-        let t2 = new Transicion(epsilon, AFN2.edoInicial);      //  Transicion al inicio AFN2
+        let t1 = new Transicion(epsilon,'', this.edoInicial);      //  Transicion al incio AFN1
+        let t2 = new Transicion(epsilon,'', AFN2.edoInicial);      //  Transicion al inicio AFN2
         
         e1.addTransicion(t1);                    //  Nuevas transiciones
         e1.addTransicion(t2);
@@ -93,7 +92,7 @@ export default class AFN{
         });
         
         
-        let t3 = new Transicion(epsilon, e2);      //  Transicion al fin        
+        let t3 = new Transicion(epsilon,'', e2);      //  Transicion al fin        
 
         this.edosAceptacion.forEach(edo => {    //  Reemplazar transiciones y estados de aceptacion                  
             edo.addTransicion(t3);      
@@ -116,10 +115,10 @@ export default class AFN{
                 
     }
 
-    concatenar(AFN2, id){
+    concatenar(AFN2){
         let aux = this;
         let aux1 = AFN2;
-        aux.idAFN = id;
+        
         console.log(aux.edoInicial.getTransiciones())  
         console.log(aux1.edoInicial.getTransiciones())  
         aux.edosAceptacion.forEach(edo => {       
@@ -128,7 +127,7 @@ export default class AFN{
             edo.setAceptacion(false);
         });
 
-        aux1.edoInicial.transiciones.clear();
+        //aux1.edoInicial.transiciones.clear();
         aux1.edosAFN.delete(aux1.edoInicial);
 
         aux1.edosAFN.forEach(edo => {
@@ -142,7 +141,7 @@ export default class AFN{
         aux.edosAceptacion.clear();
         aux.edosAceptacion.add(aux1.edosAceptacion);
         
-        return aux;
+        //return aux;
     }
 
     transitiva(id){
