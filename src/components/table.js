@@ -2,8 +2,9 @@ const Table = ({automatas, eliminarAutomata}) => {
 
     return (
         <div className="table-list">
-            {   
-                automatas.map( automata  => {                    
+            {console.log("Table Keys:")}
+            {                                   
+                automatas.map( (automata,index)  => {                    
 
                     let strEdos = [];
                     //console.log(automata.edosAFN);
@@ -22,9 +23,9 @@ const Table = ({automatas, eliminarAutomata}) => {
                         strTran.push(edo.printStringEdo());
                     }
                    
-
+                    console.log(index);
                     return (
-                        <div className="table-preview" key={automata.idAFN}>
+                        <div className="table-preview" key={index}>
                             <h2>ID {automata.idAFN}</h2>
                             <p>Alfabeto: [ {Array.from(automata.alfabeto).join(' , ')} ]</p>
                             <p>Estados: [ {strEdos.join(' , ')} ]</p>
@@ -38,9 +39,7 @@ const Table = ({automatas, eliminarAutomata}) => {
                                 })
                             }
                             <br/>
-                            <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>
-                            
-                            
+                            <button className="button" onClick={() => eliminarAutomata(automata.idAFN)}>Eliminar Automata</button>                                                        
                         </div>  
                     );
                 })

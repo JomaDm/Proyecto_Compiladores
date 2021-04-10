@@ -213,6 +213,36 @@ export default class AFN{
         //return aux;
     }
 
+    generarAFNEspecial(listaAFN){
+        
+        //console.log(listaAFN);
+        let edo =  new Estado(1);
+        this.edosAFN.forEach(  edo => edo.setIdEstado(edo.idEstado+1));
+        let auxId = this.noEdo+2;
+        
+
+        listaAFN.forEach( afn => {
+            let edos =  afn.edosAFN;
+            edos.forEach( edo => {
+                edo.setIdEstado(auxId++)
+                this.edosAFN.add(edo);
+            })            
+            let alfabeto_aux = afn.alfabeto;
+            alfabeto_aux.forEach(simb => this.alfabeto.add(simb));
+        } );        
+        this.noEdo = auxId;
+        
+        edo.addTransicion(new Transicion(epsilon,'',this.edoInicial));
+        listaAFN.forEach( afn => {
+            let edoIni =  afn.edoInicial;
+            edo.addTransicion(new Transicion(epsilon,'',edoIni));
+            afn.edosAceptacion.forEach( edo => this.edosAceptacion.add(edo));
+        } );      
+        this.edosAFN.add(edo);
+        this.edoInicial = edo;
+        console.log(this);
+    }
+
     cerraduraEpsilon(e){
         let Resultado = new Set([Estado]);
         let Stack = [];        

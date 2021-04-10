@@ -12,7 +12,7 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
     const crearObjAutomata = (cadena) => {
         if(cadena !== ''){
             setContadorId(contadorId+1);
-            if (cadena.includes("-")) {
+            if (cadena.includes("-") && cadena.length > 1) {
                 let letras = cadena.split("-")
                 if(letras[0].charCodeAt(0) <= letras[1].charCodeAt(0)){
                     let automata = new AFN(
@@ -55,6 +55,7 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
                 <label>Ingrese el un simbolo para crear el automata o un rango.</label><br/>
                 <label>Para los rangos use un "-" para separar los rangos.</label>
                     <input 
+                        className="create-input"
                         type="text" 
                         id="input-new"
                         value={cadenaAutomata}
