@@ -5,24 +5,35 @@ import { useState } from "react";
 const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elminarVariosAutomatas}) => {
     const [listaSeleccionados, setListaSeleccionados] = useState([]);
     const [checklistValues, setChecklistValues] = useState(Array(automatas.length).fill(false));
+    const [tokenvalue, setTokenvalue] = useState(Array(automatas.length).fill(''));
 
-    const verificarSeleccionados = (event) => {
-        setListaSeleccionados(listaSeleccionados.concat(event.target.value));   
-        handleCheck(Number(event.target.id))     ;
+    const verificarSeleccionados = (event) => {        
+        handleCheck(Number(event.target.id));
+        let lista_sel_aux = [];
+        checklistValues.forEach( (element,index) => {
+            if(element){
+                lista_sel_aux.push(index);
+            }
+        })
+        setListaSeleccionados(lista_sel_aux);   
     }
     
     const handleClickUnirAuto = (event) => {
         event.preventDefault();
         if(listaSeleccionados.length >= 2){
+            let tokenFinal = [];
             let automatasSeleccionados = []
-            listaSeleccionados.forEach(id => {
+            listaSeleccionados.forEach(id => {                
                 let automata_aux = automatas.find(automata => String(automata.idAFN) === String(id));
                 automatasSeleccionados.push(automata_aux);
+                tokenFinal.push(tokenvalue[id]);
             });
+            console.log(listaSeleccionados);
             let automata1 = automatasSeleccionados[0];
-            automatasSeleccionados = automatasSeleccionados.filter( automata => String(automata.idAFN) !== String(0))        
-            automata1.generarAFNEspecial(automatasSeleccionados);        
-            let lista = listaSeleccionados.filter( id => String(id) !== String(0));
+            automatasSeleccionados = automatasSeleccionados.filter( automata => String(automata.idAFN) !== String(automata1.idAFN))        
+            //console.log(tokenFinal);
+            automata1.generarAFNEspecial(automatasSeleccionados,tokenFinal);        
+            let lista = listaSeleccionados.filter( id => String(id) !== String(automata1.idAFN));
             elminarVariosAutomatas(lista);
             setChecklistValues(Array(automatas.length).fill(false));
             setListaSeleccionados([]);
@@ -33,26 +44,38 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
         setChecklistValues(checklistValues);
     }
 
+    const handleTokenValue = (event) => {
+        let index = Number(event.target.id.replace("t",""));
+        let tokenList = tokenvalue.slice();
+        tokenList[index] = event.target.value;
+        setTokenvalue(tokenList);        
+    }
+
     return (  
         <div className="LexiconAnalyzer_AFNs">            		
 			<Operations></Operations>
+            {automatas.length > 1 && 
             <form className="create">
                 <h3>Unir AFN's para construir un analizador léxico</h3>
                 <p>Selecciona los automatas a unir:</p>
                 {
                     automatas.map((automata,index) => {                                               
                         return (
-                            <div key={"Check" + String(index)}> 
-                                <label>
-                                <input     
-                                    id={index}
+                            <div key={"Check" + String(index)} className="create-input">                                 
+                                <input           
+                                    id={index}                              
                                     checked={checklistValues[index]}                                                            
                                     type="checkbox"                                     
                                     value={automata.idAFN}
                                     onChange={(event) => verificarSeleccionados(event)}
                                 />
-                                <span> ID {automata.idAFN}</span>
-                                </label>
+                                <span> ID {automata.idAFN}</span>                                
+                                <span>  Token: </span>
+                                <input
+                                    id={"t"+index}                                     
+                                    value={tokenvalue[index]}
+                                    onChange={(event) => handleTokenValue(event)}
+                                />                                
                             </div>
                         );
                     })   
@@ -62,6 +85,7 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
                     onClick={(event) => handleClickUnirAuto(event)}    
                 >Unir automatas</button>                    
             </form>
+            }
             <h2>Automatas</h2>	
             <Table 
                 automatas={automatas}

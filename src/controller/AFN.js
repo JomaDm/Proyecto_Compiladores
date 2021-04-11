@@ -213,7 +213,7 @@ export default class AFN{
         //return aux;
     }
 
-    generarAFNEspecial(listaAFN){
+    generarAFNEspecial(listaAFN,listaTokens){
         
         //console.log(listaAFN);
         let edo =  new Estado(1);
@@ -240,6 +240,11 @@ export default class AFN{
         } );      
         this.edosAFN.add(edo);
         this.edoInicial = edo;
+        
+        let i=0;
+        this.edosAceptacion.forEach( (edo) => {
+            edo.setToken(Number(listaTokens[i++]));
+        })
         console.log(this);
     }
 
