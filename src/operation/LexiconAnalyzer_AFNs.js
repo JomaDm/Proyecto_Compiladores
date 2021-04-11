@@ -31,12 +31,13 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
             console.log(listaSeleccionados);
             let automata1 = automatasSeleccionados[0];
             automatasSeleccionados = automatasSeleccionados.filter( automata => String(automata.idAFN) !== String(automata1.idAFN))        
-            //console.log(tokenFinal);
+            
             automata1.generarAFNEspecial(automatasSeleccionados,tokenFinal);        
             let lista = listaSeleccionados.filter( id => String(id) !== String(automata1.idAFN));
             elminarVariosAutomatas(lista);
             setChecklistValues(Array(automatas.length).fill(false));
             setListaSeleccionados([]);
+            setTokenvalue(Array(automatas.length).fill(''));
         }
     }
     const handleCheck = (index) => {

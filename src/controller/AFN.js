@@ -213,8 +213,7 @@ export default class AFN{
         //return aux;
     }
 
-    generarAFNEspecial(listaAFN,listaTokens){
-        
+    generarAFNEspecial(listaAFN,listaTokens){        
         //console.log(listaAFN);
         let edo =  new Estado(1);
         this.edosAFN.forEach(  edo => edo.setIdEstado(edo.idEstado+1));
