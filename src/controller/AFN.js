@@ -352,10 +352,84 @@ export default class AFN{
     irA(edos, simb){        
         return this.cerraduraEpsilonEdos(this.moverEdos(edos, simb));;
     }
-    
-     convertirAFD(){
-        //Debe regresar un objeto tabla que representa el afd
-        
-     }
-}
 
+    edoYaRevisado(edo,conjuntoEdos){
+        conjuntoEdos.forEach( edoGen => {
+            let ids1 = [];
+            let ids2 = [];
+
+            edoGen.forEach(edo => {
+                ids1.push(edo.idEstado);
+            });
+            edo.forEach(edo => {
+                ids2.push(edo.idEstado);
+            });
+            if(ids1.sort() === ids2.sort()){
+                return true;
+            }
+        });
+        return false;
+    }
+
+
+    
+    convertirAFD(){                 
+        let edosSinAnalizar = [];
+        let edosAFD = new Set();
+        let existe = false;
+        let j;
+        let Ij,Ik;     
+        let tabla = [];                
+        
+        j = 0;
+        Ij = new ConjuntoIj(this.alfabeto.length);
+        Ij.j = j;
+        Ij.conjI = this.cerraduraEpsilonEdos([this.edoInicial]);
+        
+        edosAFD.add(Ij);
+        edosSinAnalizar.push(Ij);
+        j++;
+
+        while (edosSinAnalizar.length !== 0) {
+            Ij = edosSinAnalizar.shift();
+
+            // eslint-disable-next-line no-loop-func
+            this.alfabeto.forEach( simb => {
+                Ik = new ConjuntoIj(this.alfabeto.length);
+                Ik.conjI = this.irA(Ij.conjI,simb);
+                if(Ik.conjI.length > 0){
+
+                    for(let I of edosAFD){
+                        if( I.sonIguales(Ik)){
+                            existe = true;
+                            Ik.transiciones[[...this.alfabeto].indexOf(simb)] = I.j;   
+                            break;                         
+                        }
+                    }
+                    if(!existe){
+                        Ik.j = j;
+                        edosAFD.add(Ik);
+                        edosSinAnalizar.push(Ik);
+                        j++;
+                    }
+                }
+            });
+        }
+
+    }
+}
+class ConjuntoIj{
+    constructor(cardinalidad){
+        this.j = -1;
+        this.conjI = new Set();
+        this.transiciones = Array(cardinalidad+1).fill(-1);
+    }
+    sonIguales(Conjunto){
+        this.conjI.forEach( aux => {
+            if(!Conjunto.has(aux)){
+                return false;
+            }
+        });
+        return true;
+    }
+}
