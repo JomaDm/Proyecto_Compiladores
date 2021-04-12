@@ -20,7 +20,7 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
     
     const handleClickUnirAuto = (event) => {
         event.preventDefault();
-        if(listaSeleccionados.length >= 2){
+        if(listaSeleccionados.length >= 2 && !tokenvalue.includes("0")){
             let tokenFinal = [];
             let automatasSeleccionados = []
             listaSeleccionados.forEach(id => {                
@@ -35,6 +35,7 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
             automata1.generarAFNEspecial(automatasSeleccionados,tokenFinal);        
             let lista = listaSeleccionados.filter( id => String(id) !== String(automata1.idAFN));
             elminarVariosAutomatas(lista);
+
             setChecklistValues(Array(automatas.length).fill(false));
             setListaSeleccionados([]);
             setTokenvalue(Array(automatas.length).fill(''));

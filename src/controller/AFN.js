@@ -23,6 +23,7 @@ export default class AFN{
         this.edosAFN = new Set();
         this.edosAceptacion = new Set();
         this.alfabeto = new Set();
+        this.isAFNEspecial = false;
 
         if(s2 === ''){
             this.constructor1(s1);
@@ -215,40 +216,67 @@ export default class AFN{
 
     generarAFNEspecial(listaAFN,listaTokens){        
         //console.log(listaAFN);
-        let edo =  new Estado(1);
-        this.edosAFN.forEach(  edo => edo.setIdEstado(edo.idEstado+1));
-        let auxId = this.noEdo+2;
-        
+        if(!this.isAFNEspecial){
+            let edo =  new Estado(1);
+            this.edosAFN.forEach(  edo => edo.setIdEstado(edo.idEstado+1));
+            let auxId = this.noEdo+2;
+            
 
-        listaAFN.forEach( afn => {
-            let edos =  afn.edosAFN;
-            edos.forEach( edo => {
-                edo.setIdEstado(auxId++)
-                this.edosAFN.add(edo);
-            })            
-            let alfabeto_aux = afn.alfabeto;
-            alfabeto_aux.forEach(simb => this.alfabeto.add(simb));
-        } );        
-        this.noEdo = auxId;
-        
-        edo.addTransicion(new Transicion(epsilon,'',this.edoInicial));
-        listaAFN.forEach( afn => {
-            let edoIni =  afn.edoInicial;
-            edo.addTransicion(new Transicion(epsilon,'',edoIni));
-            afn.edosAceptacion.forEach( edo => this.edosAceptacion.add(edo));
-        } );      
-        this.edosAFN.add(edo);
-        this.edoInicial = edo;
-        
-        let i=0;
-        this.edosAceptacion.forEach( (edo) => {
-            edo.setToken(Number(listaTokens[i++]));
-        })
+            listaAFN.forEach( afn => {
+                let edos =  afn.edosAFN;
+                edos.forEach( edo => {
+                    edo.setIdEstado(auxId++)
+                    this.edosAFN.add(edo);
+                })            
+                let alfabeto_aux = afn.alfabeto;
+                alfabeto_aux.forEach(simb => this.alfabeto.add(simb));
+            } );        
+            this.noEdo = auxId;
+            
+            edo.addTransicion(new Transicion(epsilon,'',this.edoInicial));
+            listaAFN.forEach( afn => {
+                let edoIni =  afn.edoInicial;
+                edo.addTransicion(new Transicion(epsilon,'',edoIni));
+                afn.edosAceptacion.forEach( edo => this.edosAceptacion.add(edo));
+            } );      
+            this.edosAFN.add(edo);
+            this.edoInicial = edo;
+            
+            let i=0;
+            this.edosAceptacion.forEach( (edo) => {
+                edo.setToken(Number(listaTokens[i++]));
+            })
+        }else{
+            let auxId = this.noEdo+1;
+            listaAFN.forEach( afn => {
+                let edos =  afn.edosAFN;
+                edos.forEach( edo => {
+                    edo.setIdEstado(auxId++)
+                    this.edosAFN.add(edo);
+                })            
+                let alfabeto_aux = afn.alfabeto;
+                alfabeto_aux.forEach(simb => this.alfabeto.add(simb));
+            } );        
+            this.noEdo = auxId;
+
+            let edo = this.edoInicial;            
+            listaAFN.forEach( afn => {
+                let edoIni =  afn.edoInicial;
+                edo.addTransicion(new Transicion(epsilon,'',edoIni));
+                afn.edosAceptacion.forEach( edo => this.edosAceptacion.add(edo));
+            } );  
+              
+            let i=0;
+            this.edosAceptacion.forEach( (edo) => {
+                edo.setToken(Number(listaTokens[i++]));
+            })
+        }
         console.log(this);
+        this.isAFNEspecial = true;
     }
 
     cerraduraEpsilon(e){
-        let Resultado = new Set([Estado]);
+        let Resultado = new Set();
         let Stack = [];        
         let aux = new Estado();
 
@@ -270,7 +298,7 @@ export default class AFN{
     }
 
     cerraduraEpsilonEdos(e){
-        let Resultado = new Set([Estado]);
+        let Resultado = new Set();
         let Stack = [];        
         let aux = new Estado();
 
@@ -294,9 +322,8 @@ export default class AFN{
     }
 
     mover(edo, simb){
-        let c = new Set([Estado]);
-        let aux = new Estado();
-        c.clear();
+        let c = new Set();
+        let aux;        
 
         edo.transiciones.forEach(t => {
             aux = t.getEdo_Trans(simb);
@@ -307,8 +334,8 @@ export default class AFN{
     }
 
     moverEdos(edos, simb){
-        let c = new Set([Estado]);
-        let aux = new Estado();
+        let c = new Set();
+        let aux;
         c.clear();
 
         edos.forEach(edo => {
@@ -322,13 +349,13 @@ export default class AFN{
         return c;
     }
 
-    irA(edos, simb){
-        let c = new Set([Estado]);
-        c.clear();
-        c = this.cerraduraEpsilonEdos(this.moverEdos(edos, simb));
-        return c;
+    irA(edos, simb){        
+        return this.cerraduraEpsilonEdos(this.moverEdos(edos, simb));;
     }
-
-     
+    
+     convertirAFD(){
+        //Debe regresar un objeto tabla que representa el afd
+        
+     }
 }
 
