@@ -12,7 +12,7 @@ const Navbar = () => {
                 <Link to="../operation/Transitive">Transitiva</Link>
                 <Link to="../operation/Kleene">Kleene</Link>
                 <Link to="../operation/Optional">Opcional</Link>
-                <Link to="../operation/LexiconAnalyzer_AFNs">Analizador léxico</Link>
+                <Link to="../operation/LexiconAnalyzer_AFNs">Automata Especial</Link>
                 <Link to="../operation/AFN_to_AFD">AFN a AFD</Link>
                 <Link to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
             </div>

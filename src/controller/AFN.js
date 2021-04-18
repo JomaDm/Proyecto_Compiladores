@@ -1,5 +1,6 @@
 import Transicion from './Transicion'
 import Estado from './Estado'
+import AFD from './AFD'
 
 /*
 Representacion de un automata finito no determinista
@@ -13,6 +14,25 @@ Representacion de un automata finito no determinista
 
 
 let epsilon = String.fromCharCode(5);
+
+// eslint-disable-next-line no-extend-native
+Set.prototype.union = function(setB) {
+    var union = new Set(this);
+    for (var elem of setB) {
+        union.add(elem);
+    }
+    return union;
+}
+// eslint-disable-next-line no-extend-native
+Set.prototype.intersection = function(setB) {
+    var intersection = new Set();
+    for (var elem of setB) {
+        if (this.has(elem)) {
+            intersection.add(elem);
+        }
+    }
+    return intersection;
+}
 //let fin = String.fromCharCode(0);
 
 export default class AFN{      
@@ -353,36 +373,16 @@ export default class AFN{
         return this.cerraduraEpsilonEdos(this.moverEdos(edos, simb));;
     }
 
-    edoYaRevisado(edo,conjuntoEdos){
-        conjuntoEdos.forEach( edoGen => {
-            let ids1 = [];
-            let ids2 = [];
-
-            edoGen.forEach(edo => {
-                ids1.push(edo.idEstado);
-            });
-            edo.forEach(edo => {
-                ids2.push(edo.idEstado);
-            });
-            if(ids1.sort() === ids2.sort()){
-                return true;
-            }
-        });
-        return false;
-    }
-
-
-    
     convertirAFD(){                 
         let edosSinAnalizar = [];
         let edosAFD = new Set();
         let existe = false;
-        let j;
+        var j;
         let Ij,Ik;     
         let tabla = [];                
         
         j = 0;
-        Ij = new ConjuntoIj(this.alfabeto.length);
+        Ij = new ConjuntoIj(this.alfabeto.size);
         Ij.j = j;
         Ij.conjI = this.cerraduraEpsilonEdos([this.edoInicial]);
         
@@ -394,39 +394,78 @@ export default class AFN{
             Ij = edosSinAnalizar.shift();
 
             // eslint-disable-next-line no-loop-func
-            this.alfabeto.forEach( simb => {
-                Ik = new ConjuntoIj(this.alfabeto.length);
-                Ik.conjI = this.irA(Ij.conjI,simb);
-                if(Ik.conjI.length > 0){
-
-                    for(let I of edosAFD){
-                        if( I.sonIguales(Ik)){
-                            existe = true;
-                            Ik.transiciones[[...this.alfabeto].indexOf(simb)] = I.j;   
-                            break;                         
-                        }
-                    }
-                    if(!existe){
-                        Ik.j = j;
-                        edosAFD.add(Ik);
-                        edosSinAnalizar.push(Ik);
-                        j++;
+            for( let c of this.alfabeto){
+                Ik = new ConjuntoIj(this.alfabeto.size);
+                Ik.conjI = this.irA(Ij.conjI,c);
+                existe = false;
+                if(Ik.conjI.size === 0){
+                    continue;
+                }
+                for(let I of edosAFD){
+                    if( I.sonIguales(Ik)){
+                        existe = true;
+                        Ik.transiciones[[...this.alfabeto].indexOf(c)] = I.j;   
+//                        console.log("Si son iguales: ",I,Ik);
+                        break;                         
                     }
                 }
-            });
-        }
+                if(!existe){
+                    Ik.j = j;
+                    edosAFD.add(Ik);
+                    edosSinAnalizar.push(Ik);
+                    j++;
+                    //console.log("J",j);
+                }                
+            }       
+        }        
 
+        for(let I of edosAFD){
+            let conjAux = new Set();
+            conjAux = conjAux.union(I.conjI);
+            conjAux = conjAux.intersection(I.conjI);
+
+            if( conjAux.size !== 0){
+                for(let edo of conjAux){
+                    I.transiciones[this.alfabeto.size-1 ] = edo.token;
+                    break;
+                }
+            }else{
+                I.transiciones[this.alfabeto.size-1 ] = -1;
+            }
+        }
+        let alfabeto_afd = []                
+
+        this.alfabeto.forEach(simb => {
+            alfabeto_afd.push(simb);
+        })
+        console.log("J : ",j);
+        tabla = Array(j).fill(Array(this.alfabeto.size).fill(-1));
+
+        for(let I of edosAFD){
+            for (let columna = 0; columna < this.alfabeto.size; columna++) {
+                tabla[I.j][columna] = I.transiciones[columna];
+            }
+            console.log(I);
+        }
+        let afd = new AFD(alfabeto_afd,tabla);
+        afd.cardAlfabeto = this.alfabeto.size;
+
+        console.log(afd);
     }
 }
 class ConjuntoIj{
     constructor(cardinalidad){
         this.j = -1;
         this.conjI = new Set();
-        this.transiciones = Array(cardinalidad+1).fill(-1);
+        let aux = cardinalidad+1;
+        this.transiciones = Array(aux).fill(-1);
     }
     sonIguales(Conjunto){
+        if(this.conjI.size !== Conjunto.conjI.size){
+            return false;
+        }
         this.conjI.forEach( aux => {
-            if(!Conjunto.has(aux)){
+            if(!Conjunto.conjI.has(aux)){
                 return false;
             }
         });

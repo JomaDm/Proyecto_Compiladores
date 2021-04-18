@@ -12,12 +12,18 @@ import AFNtoAFD from './operation/AFN_to_AFD'
 import Test from './operation/Test'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import AFN from "./controller/AFN";
 
 
 
 
 function App() {
-    const [automatas,setAutomatas] = useState([]);
+    let afn1 = new AFN('b','',1);
+    let afn2 = new AFN('c','',2);
+    afn1.kleene();
+    let auxAut = new AFN('a','',0)
+    auxAut.generarAFNEspecial([afn1,afn2],[10,20,30]);
+    const [automatas,setAutomatas] = useState([auxAut]);
     const [idAutomata,setIdAutomata] = useState(0);
 
     const agregarAutomata = (Automata) => {      
@@ -25,17 +31,20 @@ function App() {
     }   
 
     const eliminarAutomata = (id) => {
-        const newAutomatas = automatas.filter(automatas => automatas.idAFN !==id);
+        const newAutomatas = automatas.filter(automatas => automatas.idAFN !== id);
         setAutomatas(newAutomatas);
     }
 
-    const elminarVariosAutomatas = (lista_id) => {        
+    const elminarVariosAutomatas = (lista_indices) => {        
         //console.log(lista_id);
-        let aux_lista = automatas.slice();
+        let aux_lista = [];        
 
-        lista_id.forEach( id => {            
-            aux_lista = aux_lista.filter(automatas => Number(automatas.idAFN) !==Number(id));
-        });
+        for(let i = 0; i < automatas.length; i++){
+            if(!lista_indices.includes(i)){
+                aux_lista.push(automatas[i]);
+            }
+        }
+        
         
         setAutomatas(aux_lista);
 

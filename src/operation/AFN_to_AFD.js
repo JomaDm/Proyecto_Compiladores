@@ -4,11 +4,20 @@ import { useState } from "react";
 
 const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata}) => {
     const [op1, setOp1] = useState(-1);
+
+    const handleClickConvertir = (event) => {
+        event.preventDefault();
+        if(op1 !== "-1"){
+            let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
+            automata1.convertirAFD();                        
+        }                
+    }
+
     return (  
         <div className="LexiconAnalyzer_AFNs">            		
 			<Operations></Operations>
             <form className="create">
-            <h3>Analizar lexicamente una cadena</h3>            
+            <h3>Convertir a AFD</h3>            
             <label>ID del automata:</label>
                     <select 
                         value={op1}
@@ -31,7 +40,10 @@ const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata}) => {
                             })
                         }
                     </select>
-                <button className="boton">Convertir</button>
+                <button 
+                    className="boton"
+                    onClick={(event) => handleClickConvertir(event)}
+                >Convertir</button>
         </form>
             <h2>Automatas</h2>	
             <Table 

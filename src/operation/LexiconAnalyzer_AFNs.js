@@ -7,6 +7,18 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
     const [checklistValues, setChecklistValues] = useState(Array(automatas.length).fill(false));
     const [tokenvalue, setTokenvalue] = useState(Array(automatas.length).fill(''));
 
+    const hasDuplicates = (array) => {
+        var valuesSoFar = [];
+        for (var i = 0; i < array.length; ++i) {
+            var value = array[i];
+            if (valuesSoFar.indexOf(value) !== -1) {
+                return true;
+            }
+            valuesSoFar.push(value);
+        }
+        return false;
+    }
+
     const verificarSeleccionados = (event) => {        
         handleCheck(Number(event.target.id));
         let lista_sel_aux = [];
@@ -14,31 +26,35 @@ const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elmin
             if(element){
                 lista_sel_aux.push(index);
             }
-        })
-        setListaSeleccionados(lista_sel_aux);   
-    }
-    
+        })        
+        setListaSeleccionados(lista_sel_aux);        
+    }    
+
     const handleClickUnirAuto = (event) => {
-        event.preventDefault();
-        if(listaSeleccionados.length >= 2 && !tokenvalue.includes("0")){
+        event.preventDefault();        
+        let duplicados = hasDuplicates(tokenvalue);
+        if(listaSeleccionados.length >= 2 && !tokenvalue.includes("0") && !duplicados){
             let tokenFinal = [];
-            let automatasSeleccionados = []
-            listaSeleccionados.forEach(id => {                
-                let automata_aux = automatas.find(automata => String(automata.idAFN) === String(id));
+            let automatasSeleccionados = []            
+            listaSeleccionados.forEach(index => {                
+                let automata_aux = automatas[index];
                 automatasSeleccionados.push(automata_aux);
-                tokenFinal.push(tokenvalue[id]);
-            });
-            console.log(listaSeleccionados);
+                tokenFinal.push(tokenvalue[index]);
+            });            
             let automata1 = automatasSeleccionados[0];
-            automatasSeleccionados = automatasSeleccionados.filter( automata => String(automata.idAFN) !== String(automata1.idAFN))        
+            automatasSeleccionados.shift();
             
-            automata1.generarAFNEspecial(automatasSeleccionados,tokenFinal);        
-            let lista = listaSeleccionados.filter( id => String(id) !== String(automata1.idAFN));
+            automata1.generarAFNEspecial(automatasSeleccionados,tokenFinal);
+            listaSeleccionados.shift();            
+            let lista = listaSeleccionados;
             elminarVariosAutomatas(lista);
 
             setChecklistValues(Array(automatas.length).fill(false));
             setListaSeleccionados([]);
             setTokenvalue(Array(automatas.length).fill(''));
+        }
+        if(duplicados){
+            alert("Tokens duplicados");
         }
     }
     const handleCheck = (index) => {
