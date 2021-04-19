@@ -9,8 +9,7 @@ const Join = ({automatas, agregarAutomata, eliminarAutomata}) => {
 
     const handleClickUnir = (event) => {
         event.preventDefault();
-        console.log(op1);
-        console.log(op2);
+        
         if(op1 !== "-1" && op2 !== "-1" && op1 !== op2){
             let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));
             let automata2 = automatas.find(automata => String(automata.idAFN) === String(op2));

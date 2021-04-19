@@ -1,7 +1,6 @@
 import React from 'react';
 
-const AfdTable = ({afd}) => {
-    console.log("Recibi: ",afd);
+const AfdTable = ({afd}) => {    
     return ( 
         <div>
             <table>

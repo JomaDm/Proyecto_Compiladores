@@ -2,17 +2,20 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import AfdTable from '../components/afd';
 import { useState } from "react";
+import AnalizadorLexico from "../controller/AnalizadorLexico";
 
-const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata,afd, setAfd}) => {
+const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata,afd, setAfd,analizadorLexico,setAnalizadorLexico}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickConvertir = (event) => {
         event.preventDefault();
         if(op1 !== "-1"){
             let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
-            let aux = automata1.convertirAFD(); 
-            console.log(aux); 
+            let aux = automata1.convertirAFD();             
             setAfd(aux);            
+            let analizador = new AnalizadorLexico();
+            analizador.setAFD(afd);
+            setAnalizadorLexico(analizador)            
         }               
         setOp1("-1"); 
     }
