@@ -18,12 +18,15 @@ import AFN from "./controller/AFN";
 
 
 function App() {
-    let afn1 = new AFN('b','',1);
-    let afn2 = new AFN('c','',2);
-    afn1.kleene();
-    let auxAut = new AFN('a','',0)
-    auxAut.generarAFNEspecial([afn1,afn2],[10,20,30]);
-    const [automatas,setAutomatas] = useState([auxAut]);
+    // let afn1 = new AFN('b','',1);
+    // let afn2 = new AFN('c','',2);
+    // afn1.kleene();
+    // let auxAut = new AFN('a','',0);
+    // auxAut.generarAFNEspecial([afn1,afn2],[10,20,30]);
+
+    const [afd, setAfd] = useState(null);
+    // const [automatas,setAutomatas] = useState([auxAut]);
+    const [automatas,setAutomatas] = useState([]);
     const [idAutomata,setIdAutomata] = useState(0);
 
     const agregarAutomata = (Automata) => {      
@@ -115,6 +118,8 @@ function App() {
                                 automatas={automatas}
                                 agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
+                                afd={afd}
+                                setAfd={setAfd}
                             ></AFNtoAFD>
                         </Route>
                         <Route exact path="/operation/AnalyzeLexically">

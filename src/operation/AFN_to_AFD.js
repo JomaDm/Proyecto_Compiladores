@@ -1,20 +1,41 @@
 import Operations from "../components/operations"
 import Table from "../components/table"
+import AfdTable from '../components/afd';
 import { useState } from "react";
 
-const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata}) => {
+const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata,afd, setAfd}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickConvertir = (event) => {
         event.preventDefault();
         if(op1 !== "-1"){
             let automata1 = automatas.find(automata => String(automata.idAFN) === String(op1));            
-            automata1.convertirAFD();                        
-        }                
+            let aux = automata1.convertirAFD(); 
+            console.log(aux); 
+            setAfd(aux);            
+        }               
+        setOp1("-1"); 
+    }
+    const deplegarTablaAfd = (afd) => {
+        if(afd === null){
+            return (
+                <h2>Ningun AFD convertido</h2>
+            );
+        }else{
+            return(
+                <div>
+                    <h2>AFD actual:</h2>
+                    <AfdTable afd={afd}></AfdTable>
+                </div>
+            );
+        }
     }
 
     return (  
-        <div className="LexiconAnalyzer_AFNs">            		
+        <div className="LexiconAnalyzer_AFNs">
+            {
+                deplegarTablaAfd(afd)
+            }         		
 			<Operations></Operations>
             <form className="create">
             <h3>Convertir a AFD</h3>            
