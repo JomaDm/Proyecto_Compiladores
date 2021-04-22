@@ -11,6 +11,7 @@ import LexiconAnalyzerAFNs from './operation/LexiconAnalyzer_AFNs'
 import AFNtoAFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import AFN from "./controller/AFN";
 
 
 
@@ -23,10 +24,39 @@ function App() {
     // auxAut.generarAFNEspecial([afn1,afn2],[10,20,30]);
     // const [automatas,setAutomatas] = useState([auxAut]);
 
+    let afn1 = new AFN('D', '', 0);
+    let afn2 = new AFN('D', '', 1);
+    let afn3 = new AFN('.', '', 2);
+    let afn4 = new AFN('D', '', 3);
+    let afn5 = new AFN('L', '', 4);
+    let afn6 = new AFN('L', '', 5);
+    let afn7 = new AFN('D', '', 6);
+    let afn8 = new AFN('+', '', 7);
+    let afn9 = new AFN('*', '', 8);
+    let afn10 = new AFN('E', '', 9);
+    let afn11 = new AFN('T', '', 10);
+    afn1.transitiva();
+
+    afn2.transitiva();
+    afn4.transitiva();
+    afn2.concatenar(afn3);
+    afn2.concatenar(afn4);
+
+    afn6.unirAFNs(afn7);
+    afn6.kleene();
+    afn5.concatenar(afn6);
+
+    afn10.unirAFNs(afn11);
+    afn10.transitiva();
+
+    afn1.generarAFNEspecial([afn2, afn5, afn8, afn9, afn10],[10, 20, 30, 40, 50, 60]);
+
+    // afn1.convertirAFD();
+
     const [afd, setAfd] = useState(null);
     const [analizadorLexico, setAnalizadorLexico] = useState(null);
     
-    const [automatas,setAutomatas] = useState([]);
+    const [automatas,setAutomatas] = useState([afn1]);
     const [idAutomata,setIdAutomata] = useState(0);
 
     const agregarAutomata = (Automata) => {      

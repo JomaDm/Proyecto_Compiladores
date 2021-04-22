@@ -1,15 +1,21 @@
 
 export default class AnalizadorLexico{
 
-    constructor(sigma='',afd=null){
+    constructor(sigma='', afd=null){
         this.AFD = afd;
         this.sigma = sigma;
 
         this.lexema = null;
-        this.caracterActual = 0;
+        this.indiceCaracterActual = 0;
         this.inicioLexema = 0;
-        this.finLexema = 0;
-        this.edoAceptacion = false;        
+        this.finLexema = -1;
+        this.edoAceptacion = false;     
+        
+        this.stack = [];
+        this.simbActual = '';
+        this.token = -1;
+        this.edoSig = -1;
+        this.edoActual = -1;
     }
 
     setAFD(AFD){
@@ -21,7 +27,8 @@ export default class AnalizadorLexico{
     }
 
     analizarSigma(){
-        if (this.sigma !== '' && this.AFD !== null) {            
+        if (this.sigma !== '' && this.AFD !== null) {    
+            console.log(this.sigma)        
             let aux_tok = []
             let aux = this.yylex();
             aux_tok.push(aux);
@@ -37,36 +44,79 @@ export default class AnalizadorLexico{
     }
 
     yylex(){        
-        //Va a devolver los tokens y sus lexemas (cadena correspondientes a ese token)
-        let alfabeto = this.AFD.alfabeto;
-        let caracter = this.AFD.alfabeto.indexOf(this.sigma.charAt(this.inicioLexema))       
-        let irA = this.AFD.tablaTrans[0][caracter];  
-        this.finLexema++;
-        let token = 0; 
-        if(this.finLexema >= this.sigma.length){
+        let tamAlfabeto = this.AFD.alfabeto.length;  
+        console.log("Inicio del yylex")
+        console.log("Pos actual: " + this.indiceCaracterActual);
+        this.stack.push(this.indiceCaracterActual);
+        console.log("Pila: " + this.stack);
+
+        if(this.indiceCaracterActual >= this.sigma.length){
+            console.log("Terminamos")
             return {
-                token:0,
-                inicio:this.inicioLexema,
-                fin:this.finLexema,
-                cadena:''
+                token: 0,
+                inicio: this.inicioLexema,
+                fin: this.finLexema,
+                cadena: ''
             };  
         }
-        while (caracter !== -1 && this.finLexema <= this.sigma.length && irA !== -1) {                                  
-            token = this.AFD.tablaTrans[irA][alfabeto.length];            
-            irA = this.AFD.tablaTrans[irA][caracter];            
-            caracter = this.AFD.alfabeto.indexOf(this.sigma.charAt(this.finLexema))
-            this.finLexema++;
-        } 
-        console.log(this.inicioLexema,this.finLexema); 
-        this.finLexema--;
-        let info = {
-            token,
-            inicio:this.inicioLexema,
-            fin:this.finLexema-1,
-            cadena:this.sigma.substring(this.inicioLexema,this.finLexema)
-        };             
 
-        this.inicioLexema = this.finLexema;
+        this.inicioLexema = this.indiceCaracterActual;
+        this.edoActual = 0;
+        this.edoAceptacion = false;
+        this.finLexema = -1;
+        this.token = -1;
+
+        while(this.indiceCaracterActual < this.sigma.length){
+            console.log("1-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual + " Edo Actual: " + this.edoActual)
+            this.simbActual = this.sigma[this.indiceCaracterActual];
+            this.edoSig = this.AFD.tablaTrans[this.edoActual][this.AFD.alfabeto.indexOf(this.simbActual)];
+            console.log("2-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual +" Edo sig: " + this.edoSig)
+            
+            if(this.edoSig !== -1){
+                console.log(this.AFD.tablaTrans[this.edoSig][tamAlfabeto])
+                if(this.AFD.tablaTrans[this.edoSig][tamAlfabeto] !== -1){
+                    this.edoAceptacion = true;
+                    this.token = this.AFD.tablaTrans[this.edoSig][tamAlfabeto];
+                    this.finLexema = this.indiceCaracterActual;
+                }
+                this.indiceCaracterActual++;
+                this.edoActual = this.edoSig;
+                console.log("Token: " + this.token + " Inicio Lex: " + this.inicioLexema + " Fin Lexema: " + this.finLexema)
+                continue;
+            }
+            break;
+        }
+
+        if(!this.edoAceptacion){
+            this.indiceCaracterActual = this.inicioLexema + 1;
+            this.lexema = this.sigma.substring(this.inicioLexema, 1);
+            this.token = -1;
+            return {
+                token: this.token,
+                inicio: this.inicioLexema,
+                fin: this.finLexema,
+                cadena: ''
+            };  
+        }
+
+        let info = {
+            token: this.token,
+            inicio: this.inicioLexema,
+            fin: this.finLexema,
+            cadena: this.sigma.substring(this.inicioLexema, this.finLexema + 1)
+        }; 
+
+        this.indiceCaracterActual = this.finLexema + 1;
+        this.inicioLexema = this.finLexema
+        
+
         return info;
+    }
+
+    undoToken(){
+        if(this.stack.length == 0)
+            return false;
+        this.indiceCaracterActual = this.stack.pop();
+        return true;
     }
 }

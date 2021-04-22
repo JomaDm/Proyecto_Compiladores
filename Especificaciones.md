@@ -49,3 +49,8 @@ El programa debe tener un menú con las siguientes opciones:
 - Debe existir una funcion para reasignar los id de los estados pues se duplican ✔️
 
 - AFD no necesita ser un objeto, solo se necesita la tabla(la ultima columna representa si el estado es de aceptación y el token) y que el analizador lexico haga uso de la tabla(texto plano) para que se mantenga generico ✔️
+
+
+DD.DD+DDD*DD+EETTELDLD+TTDD.DD
+
+DD.DD+DDD*DD+
