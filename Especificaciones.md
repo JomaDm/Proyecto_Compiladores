@@ -20,11 +20,13 @@ El programa debe tener un menú con las siguientes opciones:
 
 - Unir AFN's para construir un analizador léxico(dados por el usuario) ✔️
 
-- Convertir AFN A AFD con la salida de la tabla
+- Convertir AFN A AFD con la salida de la tabla ✔️
 
-- Analizar lexicamente una cadena
+- En AFN a AFD agregar opcion para descargar un txt con el afd
 
-- Probar analizador lexico
+- En Analizar lexicamente agregar una opcion para cargar un afd al analizador desde un archivo.
+
+- Corregir Analizar lexicamente una cadena
 
 - Fin
 

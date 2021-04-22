@@ -9,10 +9,8 @@ import Star from './operation/Kleene'
 import Optional from './operation/Optional'
 import LexiconAnalyzerAFNs from './operation/LexiconAnalyzer_AFNs'
 import AFNtoAFD from './operation/AFN_to_AFD'
-import Test from './operation/Test'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import AFN from "./controller/AFN";
 
 
 
