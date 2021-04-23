@@ -28,13 +28,13 @@ export default class AnalizadorLexico{
 
     analizarSigma(){
         if (this.sigma !== '' && this.AFD !== null) {    
-            console.log(this.sigma)        
+            // console.log(this.sigma)        
             let aux_tok = []
             let aux = this.yylex();
             aux_tok.push(aux);
-            console.log(aux);
+            // console.log(aux);
             while (aux.token !== 0) {
-                console.log(aux);
+                // console.log(aux);
                 aux = this.yylex();
                 aux_tok.push(aux);
             }
@@ -45,13 +45,13 @@ export default class AnalizadorLexico{
 
     yylex(){        
         let tamAlfabeto = this.AFD.alfabeto.length;  
-        console.log("Inicio del yylex")
-        console.log("Pos actual: " + this.indiceCaracterActual);
+        // console.log("Inicio del yylex")
+        // console.log("Pos actual: " + this.indiceCaracterActual);
         this.stack.push(this.indiceCaracterActual);
-        console.log("Pila: " + this.stack);
+        // console.log("Pila: " + this.stack);
 
         if(this.indiceCaracterActual >= this.sigma.length){
-            console.log("Terminamos")
+            // console.log("Terminamos")
             return {
                 token: 0,
                 inicio: this.inicioLexema,
@@ -67,13 +67,13 @@ export default class AnalizadorLexico{
         this.token = -1;
 
         while(this.indiceCaracterActual < this.sigma.length){
-            console.log("1-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual + " Edo Actual: " + this.edoActual)
+            // console.log("1-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual + " Edo Actual: " + this.edoActual)
             this.simbActual = this.sigma[this.indiceCaracterActual];
             this.edoSig = this.AFD.tablaTrans[this.edoActual][this.AFD.alfabeto.indexOf(this.simbActual)];
-            console.log("2-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual +" Edo sig: " + this.edoSig)
+            // console.log("2-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual +" Edo sig: " + this.edoSig)
             
             if(this.edoSig !== -1){
-                console.log(this.AFD.tablaTrans[this.edoSig][tamAlfabeto])
+                // console.log(this.AFD.tablaTrans[this.edoSig][tamAlfabeto])
                 if(this.AFD.tablaTrans[this.edoSig][tamAlfabeto] !== -1){
                     this.edoAceptacion = true;
                     this.token = this.AFD.tablaTrans[this.edoSig][tamAlfabeto];
@@ -81,7 +81,7 @@ export default class AnalizadorLexico{
                 }
                 this.indiceCaracterActual++;
                 this.edoActual = this.edoSig;
-                console.log("Token: " + this.token + " Inicio Lex: " + this.inicioLexema + " Fin Lexema: " + this.finLexema)
+                // console.log("Token: " + this.token + " Inicio Lex: " + this.inicioLexema + " Fin Lexema: " + this.finLexema)
                 continue;
             }
             break;
@@ -90,7 +90,7 @@ export default class AnalizadorLexico{
         if(!this.edoAceptacion){
             this.indiceCaracterActual = this.inicioLexema + 1;
             this.lexema = this.sigma.substring(this.inicioLexema, 1);
-            this.token = -1;
+            this.token = 2000;
             return {
                 token: this.token,
                 inicio: this.inicioLexema,
@@ -114,7 +114,7 @@ export default class AnalizadorLexico{
     }
 
     undoToken(){
-        if(this.stack.length == 0)
+        if(this.stack.length === 0)
             return false;
         this.indiceCaracterActual = this.stack.pop();
         return true;
