@@ -4,7 +4,7 @@ import AfdTable from '../components/afd';
 import { useState } from "react";
 import AnalizadorLexico from "../controller/AnalizadorLexico";
 
-const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata,afd, setAfd,analizadorLexico,setAnalizadorLexico}) => {
+const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico}) => {
     const [op1, setOp1] = useState(-1);
 
     const handleClickConvertir = (event) => {
@@ -26,11 +26,11 @@ const AFNtoAFD = ({automatas, agregarAutomata ,eliminarAutomata,afd, setAfd,anal
     }
 
     const descargarArchivo = (content, fileName, contentType) => {
-            var a = document.createElement("a");
-            var file = new Blob([content], {type: contentType});
-            a.href = URL.createObjectURL(file);
-            a.download = fileName;
-            a.click();
+        var a = document.createElement("a");
+        var file = new Blob([content], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
     }
 
     const deplegarTablaAfd = (afd) => {

@@ -15,7 +15,6 @@ const Transitive = ({automatas, eliminarAutomata}) => {
         setOp1("-1");        
     }
 
-
     return (  
         <div className="transitive">            
 			<Operations></Operations>

@@ -4,10 +4,9 @@ import { useState } from "react";
 import AnalizadorLexico from "../controller/AnalizadorLexico";
 import AFD from "../controller/AFD"
 
-const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,analizadorLexico,setAnalizadorLexico}) => {        
+const AnalyzeLexically = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
     const [cadena, setCadena] = useState('');
     const [tokens, setTokens] = useState([]);
-    
     const [AFDtext, setAFDtext] = useState('');
 
     const deplegarTablaAfd = (afd) => {        
@@ -26,8 +25,8 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,anal
                 <div>
                     <h2>AFD actual:</h2>
                     <form action="">
-                        <input type="file" id="archivo"></input>
-                        <button className="boton-descargar"  onClick={ (event) => cargarAFD(event)}>Cargar AFD(txt)</button>
+                        <input type="file" id="archivo" onChange={(event) => cargarAFD(event)}></input>
+                        <button className="boton-descargar"  onClick={ (e) => cargarAFDtext(e)}>Cargar AFD(txt)</button>
                     </form>
                     <AfdTable afd={afd}></AfdTable>
                 </div>
@@ -39,8 +38,8 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,anal
         e.preventDefault()
         let aux = JSON.parse(AFDtext)
         let auxAFD = new AFD(aux.alfabeto, aux.tablaTrans);
-        setAnalizadorLexico(auxAFD)
-        analizadorListo()
+        setAfd(auxAFD);
+        setAnalizadorLexico(afd)
     }
 
     const cargarAFD = (event) => {
@@ -60,7 +59,6 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,anal
     }
 
     const analizadorListo = () => {
-        
         if (analizadorLexico === null) {
             return (
                 <h2>Analizador lexico no cargado</h2>
@@ -73,7 +71,6 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,anal
                     <Operations></Operations>
                     <form className="create">
                         <h3>Analizar lexicamente una cadena</h3>            
-                        
                         <label>Ingrese la cadena.</label>
                             <input 
                                 className="create-input" 
@@ -118,12 +115,8 @@ const AnalyzeLexically = ({automatas, agregarAutomata, eliminarAutomata,afd,anal
 
     return (  
         <div className="AnalyzeLexically">    
-        {
-            deplegarTablaAfd(afd)
-        }             
-        {
-            analizadorListo()
-        }              
+        {deplegarTablaAfd(afd)}             
+        {analizadorListo()}              
     </div>
     );
 }

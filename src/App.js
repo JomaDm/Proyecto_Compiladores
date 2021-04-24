@@ -146,20 +146,16 @@ function App() {
                         <Route exact path="/operation/AFN_to_AFD">
                             <AFNtoAFD
                                 automatas={automatas}
-                                agregarAutomata={agregarAutomata}
                                 eliminarAutomata={eliminarAutomata}
                                 afd={afd}
                                 setAfd={setAfd}
                                 setAnalizadorLexico={setAnalizadorLexico}
-                                analizadorLexico={analizadorLexico}
                             ></AFNtoAFD>
                         </Route>
                         <Route exact path="/operation/AnalyzeLexically">
                             <AnalyzeLexically
-                                automatas={automatas}
-                                agregarAutomata={agregarAutomata}
-                                eliminarAutomata={eliminarAutomata}
                                 afd={afd}
+                                setAfd={setAfd}
                                 analizadorLexico={analizadorLexico}
                                 setAnalizadorLexico={setAnalizadorLexico}
                             ></AnalyzeLexically>
