@@ -22,11 +22,21 @@ El programa debe tener un menú con las siguientes opciones:
 
 - Convertir AFN A AFD con la salida de la tabla ✔️
 
-- En AFN a AFD agregar opcion para descargar un txt con el afd
+- En AFN a AFD agregar opcion para descargar un txt con el afd ✔️
 
-- En Analizar lexicamente agregar una opcion para cargar un afd al analizador desde un archivo.
+- En Analizar lexicamente agregar una opcion para cargar un afd al analizador desde un archivo. ✔️
 
-- Corregir Analizar lexicamente una cadena
+- Corregir Analizar lexicamente una cadena ✔️
+
+- Corregir boton Cargar AFD para evitar el doble click
+
+- Definir a los tokens con nombres y guardarlo en un arreglo distinto al afd
+
+- Terminar analisis sintactico por decenso recursivo
+
+- Agregar V, para los atributos heredados
+
+- 
 
 - Fin
 
