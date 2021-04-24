@@ -57,7 +57,7 @@ function App() {
     const [analizadorLexico, setAnalizadorLexico] = useState(null);
     
     const [automatas,setAutomatas] = useState([afn1]);
-    const [idAutomata,setIdAutomata] = useState(0);
+    const [idAutomata,setIdAutomata] = useState(11);
 
     const agregarAutomata = (Automata) => {      
         setAutomatas(automatas.concat(Automata));

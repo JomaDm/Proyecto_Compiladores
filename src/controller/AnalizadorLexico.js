@@ -69,6 +69,15 @@ export default class AnalizadorLexico{
         while(this.indiceCaracterActual < this.sigma.length){
             // console.log("1-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual + " Edo Actual: " + this.edoActual)
             this.simbActual = this.sigma[this.indiceCaracterActual];
+            if(!this.AFD.alfabeto.includes(this.simbActual)){
+                return {
+                    token: 0,
+                    inicio: this.inicioLexema,
+                    fin: this.finLexema,
+                    cadena: 'Caracter no definido en el alfabeto'
+                }; 
+            }
+
             this.edoSig = this.AFD.tablaTrans[this.edoActual][this.AFD.alfabeto.indexOf(this.simbActual)];
             // console.log("2-simb actual: " + this.simbActual + " Pos actual: " + this.indiceCaracterActual +" Edo sig: " + this.edoSig)
             
