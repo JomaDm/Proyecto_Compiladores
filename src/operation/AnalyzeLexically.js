@@ -115,9 +115,10 @@ const AnalyzeLexically = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) 
 
     return (  
         <div className="AnalyzeLexically">    
-        {deplegarTablaAfd(afd)}             
-        {analizadorListo()}              
-    </div>
+            <h2>Analisis lexico</h2>
+            {deplegarTablaAfd(afd)}             
+            {analizadorListo()}              
+        </div>
     );
 }
  

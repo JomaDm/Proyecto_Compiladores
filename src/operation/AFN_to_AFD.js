@@ -6,6 +6,7 @@ import AnalizadorLexico from "../controller/AnalizadorLexico";
 
 const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico}) => {
     const [op1, setOp1] = useState(-1);
+    const [cadena, setCadena] = useState('');
 
     const handleClickConvertir = (event) => {
         event.preventDefault();
@@ -22,7 +23,7 @@ const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico})
 
     const handleClickDescargar = () =>{
         let auxAFD =JSON.stringify(afd);
-        descargarArchivo(auxAFD, 'AFD.JSON', 'text/plain')
+        descargarArchivo(auxAFD, cadena + '.txt', 'text/plain')
     }
 
     const descargarArchivo = (content, fileName, contentType) => {
@@ -42,7 +43,16 @@ const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico})
             return(
                 <div>
                     <h2>AFD actual:</h2>
-                    <button className="boton-descargar" onClick = {() => handleClickDescargar()}>Descargar AFD(txt)</button>
+                    <form action="">
+                        <input 
+                            className="create-input-name"
+                            type="text" 
+                            id="input-name"
+                            value={cadena}
+                            onChange={(event) => setCadena(event.target.value)}
+                        ></input>         
+                        <button className="boton-descargar" onClick = {() => handleClickDescargar()}>Descargar AFD(txt)</button>
+                    </form>                    
                     <AfdTable afd={afd}></AfdTable>                    
                 </div>
             );

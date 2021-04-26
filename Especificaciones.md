@@ -28,15 +28,15 @@ El programa debe tener un menú con las siguientes opciones:
 
 - Corregir Analizar lexicamente una cadena ✔️
 
-- Corregir boton Cargar AFD para evitar el doble click
-
-- Definir a los tokens con nombres y guardarlo en un arreglo distinto al afd
+- Corregir boton Cargar AFD para evitar el doble click 
 
 - Terminar analisis sintactico por decenso recursivo
 
-- Agregar V, para los atributos heredados
+- Agregar un input para nombrar los AFD
 
-- 
+- Implementar postfijo
+
+- Gramatica libre de contexto a AFN
 
 - Fin
 
@@ -59,8 +59,3 @@ El programa debe tener un menú con las siguientes opciones:
 - Debe existir una funcion para reasignar los id de los estados pues se duplican ✔️
 
 - AFD no necesita ser un objeto, solo se necesita la tabla(la ultima columna representa si el estado es de aceptación y el token) y que el analizador lexico haga uso de la tabla(texto plano) para que se mantenga generico ✔️
-
-
-DD.DD+DDD*DD+EETTELDLD+TTDD.DD
-
-DD.DD+DDD*DD+

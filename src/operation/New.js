@@ -5,7 +5,6 @@ import { useState } from "react";
 
 
 const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutomataNew}) => {    
-
     const [cadenaAutomata,setCadenaAutomata] = useState('');
     const [contadorId, setContadorId] = useState(0);
 

@@ -2,7 +2,7 @@ import Operations from "../components/operations"
 import Table from "../components/table"
 import { useState } from "react";
 
-const LexiconAnalyzerAFNs = ({automatas, agregarAutomata, eliminarAutomata,elminarVariosAutomatas}) => {
+const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata, elminarVariosAutomatas}) => {
     const [listaSeleccionados, setListaSeleccionados] = useState([]);
     const [checklistValues, setChecklistValues] = useState(Array(automatas.length).fill(false));
     const [tokenvalue, setTokenvalue] = useState(Array(automatas.length).fill(''));
