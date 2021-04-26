@@ -1,14 +1,13 @@
 import Operations from "../components/operations"
 import AfdTable from '../components/afd';
 import { useState } from "react";
-import AnalizadorLexico from "../controller/AnalizadorLexico";
 import AFD from "../controller/AFD"
-import analizadorSintacticoCalculadora from "../controller/analizadorSintacticoCalculadora";
+import analizadorSintacticoCalculadora from "../controller/Calculadora";
 
-const SintacticAnalysis = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
+const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
     const [cadena, setCadena] = useState('');
-    const [tokens, setTokens] = useState([]);
     const [AFDtext, setAFDtext] = useState('');
+    const [resultado, setResultado] = useState('Ninguna operacion realizada');
 
     const deplegarTablaAfd = (afd) => {        
         if(afd === null){
@@ -57,7 +56,12 @@ const SintacticAnalysis = ({afd, setAfd, analizadorLexico, setAnalizadorLexico})
         event.preventDefault();
         // let analizador = new AnalizadorLexico(cadena, afd);
         let analizadorSintactioCal = new analizadorSintacticoCalculadora(cadena, afd);
-        console.log(analizadorSintactioCal.evaluador());
+        let aux = analizadorSintactioCal.muestra();
+        if(aux === null){
+            setResultado("Operacion no valida");
+        }else{
+            setResultado(aux);
+        }
     }
 
     const analizadorListo = () => {
@@ -69,10 +73,9 @@ const SintacticAnalysis = ({afd, setAfd, analizadorLexico, setAnalizadorLexico})
             return (
                <div >
                     <h2>Analizador lexico cargado</h2>
-                    
                     <Operations></Operations>
                     <form className="create">
-                        <h3>Analizar lexicamente una cadena</h3>            
+                        <h3>Analizar sintacticamente una cadena</h3>            
                         <label>Ingrese la cadena.</label>
                             <input 
                                 className="create-input" 
@@ -89,26 +92,10 @@ const SintacticAnalysis = ({afd, setAfd, analizadorLexico, setAnalizadorLexico})
                     <table>
                         <thead>
                             <tr>
-                                <th>Token</th>
-                                <th>Cadena</th>
+                                <th>Resultado</th>
+                                <th>{resultado}</th>
                             </tr>
                         </thead>
-                        <tbody>                            
-                            {
-                                tokens.map((objtok,index) => {
-                                    return (                                            
-                                        <tr key={index}>
-                                            <td>
-                                                {objtok.token}
-                                            </td>
-                                            <td>
-                                                {objtok.cadena}
-                                            </td>
-                                        </tr>                                       
-                                    );
-                                })
-                            }                                
-                        </tbody>    
                     </table>                
                </div>
             );
@@ -124,4 +111,4 @@ const SintacticAnalysis = ({afd, setAfd, analizadorLexico, setAnalizadorLexico})
     );
 }
  
-export default SintacticAnalysis;
+export default SintacticAnalysisCalculator;

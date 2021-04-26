@@ -1,18 +1,23 @@
-import AnalizadorLexico from '../controller/AnalizadorLexico';
+import AnalizadorLexico from './AnalizadorLexico';
 
 export default class analizadorSintacticoCalculadora {
     constructor(cadena, afd){
         this.analizadoLexico = new AnalizadorLexico(cadena, afd);
     }
 
-    evaluador(){
+    muestra(){
         let v = new heredados();
-        console.log("Valor inicial: " + v.V)
+        if(this.evaluador(v)){
+            return v.V;
+        }else{
+            return null;
+        }
+    }
+
+    evaluador(v){
         let r = this.E(v);
-        console.log("Resultado: " + v.V)
-        console.log("Resultado token: " + this.analizadoLexico.token)
         if(r){
-            if(this.analizadoLexico.token !== 0){
+            if(this.analizadoLexico.yylex().token !== 0){
                 return false;
             }
             else{
@@ -23,7 +28,6 @@ export default class analizadorSintacticoCalculadora {
     }
 
     E(v){
-        console.log("Valor E: " + v.V)
         if(this.T(v)){
             if(this.Ep(v)){
                 return true;
@@ -35,8 +39,6 @@ export default class analizadorSintacticoCalculadora {
     Ep(v){
         let token = this.analizadoLexico.yylex();
         let v1 = new heredados();
-        console.log("Valor Ep: " + v.V)
-        console.log(token)
         if(token.token === 10 || token.token === 20){
             if(this.T(v1)){
                 v.V = v.V + (token.token === 10 ? v1.V : -v1.V);
@@ -52,7 +54,6 @@ export default class analizadorSintacticoCalculadora {
     }
 
     T(v){
-        console.log("Valor T: " + v.V)
         if(this.F(v)){
             if(this.Tp(v)){
                 return true;
@@ -64,8 +65,6 @@ export default class analizadorSintacticoCalculadora {
     Tp(v){
         let token = this.analizadoLexico.yylex();
         let v1 = new heredados();
-        console.log("Valor Tp: " + v.V)
-        console.log(token)
         if(token.token === 30 || token.token === 40){
             if(this.F(v1)){
                 v.V = (token.token === 30 ? v.V*v1.V : v.V/v1.V);
@@ -81,9 +80,7 @@ export default class analizadorSintacticoCalculadora {
     }
 
     F(v){
-        console.log("Valor F: " + v.V)
         let token = this.analizadoLexico.yylex();
-        console.log(token)
         if(token.token === 50){
             if(this.E(v)){
                 token = this.analizadoLexico.yylex();
@@ -94,7 +91,6 @@ export default class analizadorSintacticoCalculadora {
         }
         else if(token.token === 70){
             v.V = parseFloat(token.cadena);
-            console.log(v.V)
             return true; 
         }
         return false;

@@ -15,7 +15,8 @@ const Navbar = () => {
                 <Link to="../operation/LexiconAnalyzer_AFNs">Automata Especial</Link>
                 <Link to="../operation/AFN_to_AFD">AFN a AFD</Link>
                 <Link to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
-                <Link to="../operation/SintacticAnalysis">Analisis sintactico</Link>
+                <Link to="../operation/SintacticAnalysisCalculator">Analisis sintactico-Calculadora</Link>
+                <Link to="../operation/SintacticAnalysisPostfix">Analisis sintactico-PostFijo</Link>
             </div>
         </nav>
     );
