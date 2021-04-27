@@ -5,10 +5,12 @@ export default class analizadorSintacticoCalculadora {
         this.analizadoLexico = new AnalizadorLexico(cadena, afd);
     }
 
-    muestra(){
+    muestra(operador){
         let v = new heredados();
-        if(this.evaluador(v)){
+        if(operador === 0 && this.evaluador(v)){
             return v.V;
+        }else if(operador === 1 && this.evaluador(v)){
+            return v.X;
         }else{
             return null;
         }
@@ -42,6 +44,7 @@ export default class analizadorSintacticoCalculadora {
         if(token.token === 10 || token.token === 20){
             if(this.T(v1)){
                 v.V = v.V + (token.token === 10 ? v1.V : -v1.V);
+                v.X = v.X + " " + v1.X + " " + (token.token === 10 ? "+" : "-");
                 if(this.Ep(v)){
                     return true;
                 }
@@ -68,13 +71,13 @@ export default class analizadorSintacticoCalculadora {
         if(token.token === 30 || token.token === 40){
             if(this.F(v1)){
                 v.V = (token.token === 30 ? v.V*v1.V : v.V/v1.V);
+                v.X = v.X + " " + v1.X + " " + (token.token === 30 ? "*" : "/");
                 if(this.Ep(v)){
                     return true;
                 }
             }
             return false;
         }
-
         this.analizadoLexico.undoToken();
         return true;
     }
@@ -91,6 +94,7 @@ export default class analizadorSintacticoCalculadora {
         }
         else if(token.token === 70){
             v.V = parseFloat(token.cadena);
+            v.X = v.X + token.cadena;
             return true; 
         }
         return false;
@@ -102,5 +106,6 @@ export default class analizadorSintacticoCalculadora {
 class heredados{
     constructor(){
         this.V = 0.0;
+        this.X = "";
     }
 }

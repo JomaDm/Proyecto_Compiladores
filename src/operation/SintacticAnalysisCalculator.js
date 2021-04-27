@@ -2,7 +2,7 @@ import Operations from "../components/operations"
 import AfdTable from '../components/afd';
 import { useState } from "react";
 import AFD from "../controller/AFD"
-import analizadorSintacticoCalculadora from "../controller/Calculadora";
+import analizadorSintacticoCalculadora from "../controller/AnalizadorSintactico_CalculadoraPostfijo";
 
 const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
     const [cadena, setCadena] = useState('');
@@ -56,7 +56,7 @@ const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizad
         event.preventDefault();
         // let analizador = new AnalizadorLexico(cadena, afd);
         let analizadorSintactioCal = new analizadorSintacticoCalculadora(cadena, afd);
-        let aux = analizadorSintactioCal.muestra();
+        let aux = analizadorSintactioCal.muestra(0);
         if(aux === null){
             setResultado("Operacion no valida");
         }else{

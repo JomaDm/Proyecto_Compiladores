@@ -11,6 +11,7 @@ import LexiconAnalyzerAFNs from './operation/LexiconAnalyzer_AFNs'
 import AFNtoAFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import SintacticAnalysisCalculator from './operation/SintacticAnalysisCalculator'
+import SintacticAnalysisPostfix from './operation/SintacticAnalysisPostfix'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -158,6 +159,14 @@ function App() {
                                 analizadorLexico={analizadorLexico}
                                 setAnalizadorLexico={setAnalizadorLexico}
                             ></SintacticAnalysisCalculator>
+                        </Route>     
+                        <Route exact path="/operation/SintacticAnalysisPostfix">
+                            <SintacticAnalysisPostfix
+                                afd={afd}
+                                setAfd={setAfd}
+                                analizadorLexico={analizadorLexico}
+                                setAnalizadorLexico={setAnalizadorLexico}
+                            ></SintacticAnalysisPostfix>
                         </Route>     
                     </Switch>
                 </div>
