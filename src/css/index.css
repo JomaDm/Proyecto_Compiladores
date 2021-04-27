@@ -21,7 +21,7 @@
 	margin-left: auto;
 }
 .navbar a {
-	margin-left: 8px;
+	margin-left: 4px;
 	text-decoration: none;
 	padding: 4px;
 }
@@ -32,6 +32,10 @@
 	max-width: 1200px;
 	margin: 40px auto;
 	padding: 20px;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* table previews / list */

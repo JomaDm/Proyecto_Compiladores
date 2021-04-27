@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 const Navbar = () => {
     return (  
         <nav className="navbar">
-            <h1>Practica 1</h1>
+            <h1>Compiladores</h1>
             <div className="links">
                 <Link to="/">Inicio</Link>
                 <Link to="../operation/New">Nuevo</Link>
@@ -16,7 +16,7 @@ const Navbar = () => {
                 <Link to="../operation/AFN_to_AFD">AFN a AFD</Link>
                 <Link to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
                 <Link to="../operation/SintacticAnalysisCalculator">Analisis sintactico-Calculadora</Link>
-                <Link to="../operation/SintacticAnalysisPostfix">Analisis sintactico-PostFijo</Link>
+                <Link to="../operation/SintacticAnalysisPostfix">Analisis sintactico-Calculadora-Postfijo</Link>
             </div>
         </nav>
     );

@@ -75,7 +75,7 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
                     <h2>Analizador lexico cargado</h2>
                     <Operations></Operations>
                     <form className="create">
-                        <h3>Analizar sintacticamente una cadena</h3>            
+                        <h3>Analizar sintacticamente una cadena para el orden postfijo</h3>            
                         <label>Ingrese la cadena.</label>
                             <input 
                                 className="create-input" 
@@ -104,7 +104,7 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
 
     return (  
         <div className="SintacticAnalysis">    
-            <h2>Analisis sintactico para un orden postfijo</h2>
+            <h2>Analisis sintactico para un orden postfijo de la Calculadora</h2>
             {deplegarTablaAfd(afd)}             
             {analizadorListo()}              
         </div>
