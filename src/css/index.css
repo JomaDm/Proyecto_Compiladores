@@ -34,6 +34,10 @@
 	padding: 20px;
 }
 
+.enlaces a:hover {
+	color: #f1356d;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
