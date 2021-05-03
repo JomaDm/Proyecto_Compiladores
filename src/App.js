@@ -11,7 +11,7 @@ import LexiconAnalyzerAFNs from './operation/LexiconAnalyzer_AFNs'
 import AFNtoAFD from './operation/AFN_to_AFD'
 import AnalyzeLexically from './operation/AnalyzeLexically'
 import SintacticAnalysisCalculator from './operation/SintacticAnalysisCalculator'
-import SintacticAnalysisPostfix from './operation/SintacticAnalysisPostfix'
+import SintacticAnalysisAFNs from './operation/SintacticAnalysisAFNs'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
     const [analizadorLexico, setAnalizadorLexico] = useState(null);
     
     const [automatas,setAutomatas] = useState([]);
-    const [idAutomata,setIdAutomata] = useState(0);
+    const [idAutomata,setIdAutomata] = useState(Number(0));
 
     const agregarAutomata = (Automata) => {      
         setAutomatas(automatas.concat(Automata));
@@ -77,6 +77,7 @@ function App() {
     }
 
     const idAutomataNew = (idAutomata) => {
+        console.log(idAutomata)
         setIdAutomata(idAutomata);
     }
     
@@ -159,17 +160,21 @@ function App() {
                                 analizadorLexico={analizadorLexico}
                                 setAnalizadorLexico={setAnalizadorLexico}
                             ></SintacticAnalysisCalculator>
-                        </Route>     
-                        <Route exact path="/operation/SintacticAnalysisPostfix">
-                            <SintacticAnalysisPostfix
+                        </Route>    
+                        <Route exact path="/operation/SintacticAnalysisAFNs">
+                            <SintacticAnalysisAFNs
+                                idAutomata={idAutomata}
+                                idAutomataNew={idAutomataNew}
+                                agregarAutomata={agregarAutomata}
                                 afd={afd}
                                 setAfd={setAfd}
                                 analizadorLexico={analizadorLexico}
                                 setAnalizadorLexico={setAnalizadorLexico}
-                            ></SintacticAnalysisPostfix>
-                        </Route>     
+                            ></SintacticAnalysisAFNs>
+                        </Route> 
                     </Switch>
                 </div>
+                
             </div>
         </Router>
     );

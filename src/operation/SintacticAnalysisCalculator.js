@@ -2,12 +2,13 @@ import Operations from "../components/operations"
 import AfdTable from '../components/afd';
 import { useState } from "react";
 import AFD from "../controller/AFD"
-import analizadorSintacticoCalculadora from "../controller/AnalizadorSintactico_CalculadoraPostfijo";
+import analizadorSintacticoCalculadora from "../controller/AnalizadorSintactico_CalculadoraPostfijo"
 
 const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
     const [cadena, setCadena] = useState('');
     const [AFDtext, setAFDtext] = useState('');
-    const [resultado, setResultado] = useState('Ninguna operacion realizada');
+    const [resultado1, setResultado1] = useState('Ninguna operacion realizada');
+    const [resultado2, setResultado2] = useState('Ninguna operacion realizada');
 
     const deplegarTablaAfd = (afd) => {        
         if(afd === null){
@@ -56,11 +57,14 @@ const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizad
         event.preventDefault();
         // let analizador = new AnalizadorLexico(cadena, afd);
         let analizadorSintactioCal = new analizadorSintacticoCalculadora(cadena, afd);
-        let aux = analizadorSintactioCal.muestra(0);
+        let aux = analizadorSintactioCal.muestra();
+        console.log(aux)
         if(aux === null){
-            setResultado("Operacion no valida");
+            setResultado1("Operacion no valida");
+            setResultado2("Operacion no valida");
         }else{
-            setResultado(aux);
+            setResultado1(aux.V);
+            setResultado2(aux.X);
         }
     }
 
@@ -92,8 +96,14 @@ const SintacticAnalysisCalculator = ({afd, setAfd, analizadorLexico, setAnalizad
                     <table>
                         <thead>
                             <tr>
-                                <th>Resultado</th>
-                                <th>{resultado}</th>
+                                <th>Operacion</th>
+                                <th>{resultado1}</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>PostFijo</th>
+                                <th>{resultado2}</th>
                             </tr>
                         </thead>
                     </table>                

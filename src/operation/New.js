@@ -19,7 +19,7 @@ const New = ({automatas, agregarAutomata, eliminarAutomata, idAutomata, idAutoma
                         letras[1],
                         idAutomata++
                     );
-                    console.log("Automata:",automata);
+                    // console.log("Automata:",automata);
                     return automata;
                 }else{
                     return null

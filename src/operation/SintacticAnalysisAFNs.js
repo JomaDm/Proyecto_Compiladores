@@ -2,12 +2,12 @@ import Operations from "../components/operations"
 import AfdTable from '../components/afd';
 import { useState } from "react";
 import AFD from "../controller/AFD"
-import analizadorSintacticoCalculadora from "../controller/AnalizadorSintactico_CalculadoraPostfijo";
+import analizadorSintactico_AFNs from '../controller/AnalizadorSintactico_AFNs'
 
-const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
+const SintacticAnalysisAFNs = ({idAutomata, idAutomataNew, agregarAutomata, afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {        
     const [cadena, setCadena] = useState('');
     const [AFDtext, setAFDtext] = useState('');
-    const [resultado, setResultado] = useState('Ninguna operacion realizada');
+    const [resultado1, setResultado1] = useState('Ninguna operacion realizada');
 
     const deplegarTablaAfd = (afd) => {        
         if(afd === null){
@@ -55,12 +55,16 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
     const handleClickAnalizarCadena = (event) => {
         event.preventDefault();
         // let analizador = new AnalizadorLexico(cadena, afd);
-        let analizadorSintactioCal = new analizadorSintacticoCalculadora(cadena, afd);
-        let aux = analizadorSintactioCal.muestra(1);
-        if(aux === null){
-            setResultado("Operacion no valida");
+        let analizadorSintactico = new analizadorSintactico_AFNs(cadena, afd, idAutomata++);
+        let aux = analizadorSintactico.muestra();
+        console.log(aux)
+        console.log(idAutomata++)
+        if(aux === false){
+            setResultado1("Operacion no valida");
         }else{
-            setResultado(aux);
+            agregarAutomata(aux.AFN)            
+            idAutomataNew(aux.id);
+            setResultado1("AFN creado a partir de la expresión regular");
         }
     }
 
@@ -75,7 +79,7 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
                     <h2>Analizador lexico cargado</h2>
                     <Operations></Operations>
                     <form className="create">
-                        <h3>Analizar sintacticamente una cadena para el orden postfijo</h3>            
+                        <h3>Analizar sintacticamente una cadena para generar AFN</h3>            
                         <label>Ingrese la cadena.</label>
                             <input 
                                 className="create-input" 
@@ -92,8 +96,8 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
                     <table>
                         <thead>
                             <tr>
-                                <th>Resultado</th>
-                                <th>{resultado}</th>
+                                <th>Operacion</th>
+                                <th>{resultado1}</th>
                             </tr>
                         </thead>
                     </table>                
@@ -104,11 +108,11 @@ const SintacticAnalysisPostfix = ({afd, setAfd, analizadorLexico, setAnalizadorL
 
     return (  
         <div className="SintacticAnalysis">    
-            <h2>Analisis sintactico para un orden postfijo de la Calculadora</h2>
+            <h2>Analisis sintactico para una generar un AFN</h2>
             {deplegarTablaAfd(afd)}             
             {analizadorListo()}              
         </div>
     );
 }
  
-export default SintacticAnalysisPostfix;
+export default SintacticAnalysisAFNs;

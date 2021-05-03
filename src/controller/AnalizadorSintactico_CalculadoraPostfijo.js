@@ -5,12 +5,10 @@ export default class analizadorSintacticoCalculadora {
         this.analizadoLexico = new AnalizadorLexico(cadena, afd);
     }
 
-    muestra(operador){
+    muestra(){
         let v = new heredados();
-        if(operador === 0 && this.evaluador(v)){
-            return v.V;
-        }else if(operador === 1 && this.evaluador(v)){
-            return v.X;
+        if(this.evaluador(v)){
+            return v;
         }else{
             return null;
         }
