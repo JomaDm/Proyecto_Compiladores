@@ -30,13 +30,25 @@ El programa debe tener un menú con las siguientes opciones:
 
 - Corregir boton Cargar AFD para evitar el doble click 
 
-- Terminar analisis sintactico por decenso recursivo
+- Terminar analisis sintactico por decenso recursivo ✔️
 
-- Agregar un input para nombrar los AFD
+- Agregar un input para nombrar los AFD ✔️
 
-- Implementar postfijo
+- Implementar postfijo ✔️
 
-- Gramatica libre de contexto a AFN
+- Gramatica libre de contexto a AFN ✔️
+
+- Terminar analisis sintactico por decenso recursivo para la gramatica de gramaticas
+
+- Construir el arreglo de reglas
+
+- Operacion First y Follow
+
+- Construir la tabla LL(1) para una secuencia de entrada
+
+- Analizador lexico para la cadena de entrada(Usar la tabla LL(1))
+
+- Analisis sintactico usando LL(1)
 
 - Fin
 
