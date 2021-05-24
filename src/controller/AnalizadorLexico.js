@@ -1,6 +1,5 @@
 
 export default class AnalizadorLexico{
-
     constructor(sigma='', afd=null){
         this.AFD = afd;
         this.sigma = sigma;

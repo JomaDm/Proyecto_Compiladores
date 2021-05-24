@@ -17,6 +17,7 @@ const Navbar = () => {
                 <Link to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
                 <Link to="../operation/SintacticAnalysisCalculator">Analisis sintactico-Calculadora-Postfijo</Link>
                 <Link to="../operation/SintacticAnalysisAFNs">Analisis sintactico-AFNs</Link>
+                <Link to="../operation/SintacticAnalysisGrammar">Analisis sintactico-Gramaticas</Link>
             </div>
         </nav>
     );
