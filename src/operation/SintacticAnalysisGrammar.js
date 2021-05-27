@@ -6,6 +6,7 @@ import analizadorSintactico_Grammar from '../controller/AnalizadorSintactico_Gra
 
 const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexico }) => {
     const [cadena, setCadena] = useState('');
+    const [gramatica, setGramatica] = useState('');
     const [AFDtext, setAFDtext] = useState('');
     const [resultado1, setResultado1] = useState('Ninguna operacion realizada');
 
@@ -54,14 +55,15 @@ const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexi
 
     const handleClickAnalizarCadena = (event) => {
         event.preventDefault();
-        // let analizador = new AnalizadorLexico(cadena, afd);
-        let analizadorSintactico = new analizadorSintactico_Grammar(cadena, afd);
-        let aux = analizadorSintactico.muestra();
-        console.log(aux)
-        if (aux === false) {
-            setResultado1("Operacion no valida");
-        } else {
-            setResultado1("Es una Gramatica correcta");
+        if(cadena !== '' || gramatica !== ''){
+            let analizadorSintactico = new analizadorSintactico_Grammar(gramatica, cadena, afd);
+            let aux = analizadorSintactico.muestra();
+            console.log(aux)
+            if (aux === false) {
+                setResultado1("Operacion no valida");
+            } else {
+                setResultado1("Es una Gramatica correcta");
+            }
         }
     }
 
@@ -77,6 +79,14 @@ const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexi
                     <Operations></Operations>
                     <form className="create">
                         <h3>Analizar sintactico para la Gramatica de Gramaticas</h3>
+                        <label>Ingrese la Gramatica.</label>
+                        <input
+                            className="create-input"
+                            type="text"
+                            id="input-id1"
+                            value={gramatica}
+                            onChange={(event) => setGramatica(event.target.value)}
+                        ></input>
                         <label>Ingrese la cadena.</label>
                         <input
                             className="create-input"
