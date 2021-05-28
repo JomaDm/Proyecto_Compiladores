@@ -5,25 +5,20 @@ const Navbar = () => {
     const [openList, setOpenList] = useState([false,false,false]);
     return (                                          
         <ul className="navbar">
-            <h1><Link onClick={() => setOpenList([false,false,false])} to="/">Compiladores</Link></h1>
-            <NavItem nombre="AFD" setOpenList={setOpenList} openList={openList} column={0}> 
+            <h1 className="logo"><Link onClick={() => setOpenList([false,false,false])} to="/">Compiladores</Link></h1>
+            <NavItem nombre="AFN" setOpenList={setOpenList} openList={openList} column={0}> 
                 <div className="dropdown-menu">
-                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/New">Nuevo</Link>
+                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/New">Nuevo AFN</Link>
                     <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Join">Unir</Link>
                     <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Concatenate">Concatenar</Link>
                     <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Transitive">Transitiva</Link>
                     <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Kleene">Kleene</Link>
-                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Optional">Opcional</Link>
-                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/LexiconAnalyzer_AFNs">Automata Especial</Link>
-                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/AFN_to_AFD">AFN a AFD</Link>
-                </div>
-                
+                    <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/Optional">Opcional</Link>                    
+                </div>            
             </NavItem>
-            <NavItem nombre="Analizador Lexico" setOpenList={setOpenList} openList={openList} column={1}>
-                <div className="dropdown-menu">
-                    <Link onClick={() => setOpenList([false,false,false])} to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
-                </div>                
-            </NavItem>
+            <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/LexiconAnalyzer_AFNs">Automata Especial</Link>
+            <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/AFN_to_AFD">AFN a AFD</Link>
+            <Link onClick={() => setOpenList([false,false,false])} className="dropdown-item" to="../operation/AnalyzeLexically">Analizar lexicamente</Link>
             <NavItem nombre="Analizador Sintactico" setOpenList={setOpenList} openList={openList} column={2}>
                 <div className="dropdown-menu">
                     <Link onClick={() => setOpenList([false,false,false])} to="../operation/SintacticAnalysisCalculator">Analisis sintactico-Calculadora-Postfijo</Link>
@@ -40,8 +35,7 @@ const NavItem = (props) =>  {
     let {openList,setOpenList,column,nombre} = props;
     return (
         <li className="navbar-item">
-            <a 
-                href="#/" 
+            <button                 
                 onClick={() => {
                     let newOpenList = openList.slice();
                     newOpenList[column] = !newOpenList[column];
@@ -50,7 +44,7 @@ const NavItem = (props) =>  {
                 }}
             >
                 {nombre}
-            </a>            
+            </button>            
             {openList[column] && props.children}
         </li>
     );

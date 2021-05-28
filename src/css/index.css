@@ -20,32 +20,54 @@
 .navbar .links {
 	margin-left: auto;	
 }
-.navbar a {
+.navbar>a {
 	margin-left: 4px;
 	text-decoration: none;
 	padding: 4px;
+	width: auto;
+	display: inline-block;
 }
-.navbar a:hover {
-	color: #f1356d;
+.navbar>a:hover {
+	background: #f1356d;
+	color: white;	
 }
 .navbar-item{
 	list-style: none;
 }
-.navbar-item a{
+.navbar-item>button, .navbar-item>a {
+	border: none;
+	background: white;
 	display: block;
 	width: 100%;
 	padding: 5px;
 	margin: 5px;
+	font-size: 100%;
 	border-radius: 5px;
 }
-.navbar-item a:hover{
+.navbar-item>button:hover, .navbar-item>a:hover{
 	color: white;
 	background: #f1356d;
 }
 .dropdown-menu{
 	position: absolute;
-	background-color: rgb(255, 255, 255);
+	background-color: white;
 	height: min-content;
+	
+}
+.dropdown-menu > a{
+	border: none;
+	background: white;
+	display: block;
+	width: 100%;
+	padding: 5px;
+	margin: 5px;
+	font-size: 100%;
+	border-radius: 5px;
+	text-decoration: none;
+}
+.dropdown-menu>a:hover{
+	color: white;
+	background: #f1356d;
 	
 }
 .dropdown-item{
@@ -60,8 +82,9 @@
 	margin: 40px auto;
 	padding: 20px;
 }
-.navbar h1 a{
-	color: #f1356d;
+.logo>a{
+	text-decoration: none;
+	color: #f1356d;	
 }
 .enlaces a:hover {
 	color: #f1356d;	
