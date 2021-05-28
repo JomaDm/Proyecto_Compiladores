@@ -40,12 +40,12 @@ export default class AnalizadorSintactico_Gramaticas {
         let m = this.Vt.size + 1;
         this.tablaLL1 = new Array(n);
 
-        for (var i = 0; i < n; i++) {
+        for (let i = 0; i < n; i++) {
             this.tablaLL1[i] = new Array(m);
         }
 
-        for (var i = 0; i < n; i++) {
-            for (var j = 0; j < m; j++) {
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
                 this.tablaLL1[i][j] = -1;
             }
         }
@@ -77,7 +77,7 @@ export default class AnalizadorSintactico_Gramaticas {
             }
         }
 
-        for (var j = 0; j < this.reglas.length; j++) {
+        for (let j = 0; j < this.reglas.length; j++) {
             let conjuntoTemporal = null;
             let beEpsilon = false;
 
@@ -88,7 +88,6 @@ export default class AnalizadorSintactico_Gramaticas {
                 conjuntoTemporal = this.iniciarFollow(this.reglas[j].NoTerminal)
             }
             console.log(conjuntoTemporal)
-            let k = 0;
             conjuntoTemporal.forEach((elem) => {
                 // console.log(elem)
 
@@ -140,22 +139,19 @@ export default class AnalizadorSintactico_Gramaticas {
             console.log("N: " + n + " M: " + m);
             console.log("X: " + x + " Y: " + y);
             this.historialAcciones.push(this.tablaLL1[x][y]);
-            
-            if(this.tablaLL1[x][y] === 'Aceptar'){
-                valida = true; 
+
+            if (this.tablaLL1[x][y] === 'Aceptar') {
+                valida = true;
                 break;
-            }
-            else if(this.tablaLL1[x][y] === 'pop'){
+            } else if (this.tablaLL1[x][y] === 'pop') {
                 this.pilaDeAnalisis.pop();
                 this.cadenaSimbolos.pop();
-            }
-            else if(this.tablaLL1[x][y] === 'epsilon'){
+            } else if (this.tablaLL1[x][y] === 'epsilon') {
                 this.pilaDeAnalisis.pop();
-            }
-            else if(this.tablaLL1[x][y] === -1){
-                valida = false; 
+            } else if (this.tablaLL1[x][y] === -1) {
+                valida = false;
                 break;
-            }else{
+            } else {
                 this.pilaDeAnalisis.pop();
                 console.log(this.tablaLL1[x][y].regla);
                 this.pilaDeAnalisis = this.pilaDeAnalisis.concat(this.tablaLL1[x][y].regla.reverse());
@@ -290,13 +286,13 @@ export default class AnalizadorSintactico_Gramaticas {
                         if (aux.has('epsilon')) {
                             if (!visitados.has(this.reglas[i + 1].NoTerminal)) {
                                 let aux1 = this.follow(this.reglas[i + 1].NoTerminal, visitados);
-                                for (var elem of aux1) {
+                                for (let elem of aux1) {
                                     s.add(elem);
                                 }
                             }
                             aux.delete('epsilon');
                         }
-                        for (var elem of aux) {
+                        for (let elem of aux) {
                             s.add(elem);
                         }
                         // console.log(s)
@@ -339,8 +335,7 @@ export default class AnalizadorSintactico_Gramaticas {
         if (r) {
             if (this.analizadorLexicoGramatica.yylex().token !== 0) {
                 return false;
-            }
-            else {
+            } else {
                 this.separarTerminales();
                 console.log(this.arrayFirst);
                 console.log(this.arrayFollow);
