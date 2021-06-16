@@ -4,11 +4,16 @@ import { useState } from "react";
 import AFD from "../controller/AFD"
 import analizadorSintactico_Grammar from '../controller/AnalizadorSintactico_Gramaticas'
 
-const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexico }) => {
+const SintacticAnalysisAFNs = ({ afd, setAfd, analizadorLexico, setAnalizadorLexico}) => {
     const [cadena, setCadena] = useState('');
     const [gramatica, setGramatica] = useState('');
     const [AFDtext, setAFDtext] = useState('');
+    const [AFDCalculadora, setAFDCalculadora] = useState(null);
+    const [AFDtextCalculadora, setAFDtextCalculadora] = useState('');
     const [resultado1, setResultado1] = useState('Ninguna operacion realizada');
+    const [resultado2, setResultado2] = useState('Ninguna operacion realizada');
+    const [caso, setCaso] = useState(false);
+
 
     const deplegarTablaAfd = (afd) => {
         if (afd === null) {
@@ -53,16 +58,47 @@ const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexi
         reader.readAsText(event.target.files[0])
     }
 
-    const handleClickAnalizarCadena = (event) => {
+    const cargarAFDtextCalculadora = (e) => {
+        e.preventDefault()
+        let aux = JSON.parse(AFDtextCalculadora)
+        let auxAFD = new AFD(aux.alfabeto, aux.tablaTrans);
+        setAFDCalculadora(auxAFD);
+    }
+
+    const cargarAFDCalculadora = (event) => {
+        event.preventDefault()
+        const reader = new FileReader()
+        reader.onload = async (event) => {
+            const text = (event.target.result)
+            setAFDtextCalculadora(text);
+        };
+        reader.readAsText(event.target.files[0])
+    }
+
+    const handleClickAnalizarGramatica = (event) => {
         event.preventDefault();
-        if(cadena !== '' || gramatica !== ''){
-            let analizadorSintactico = new analizadorSintactico_Grammar(gramatica, cadena, afd);
+        if (gramatica !== '') {
+            let analizadorSintactico = new analizadorSintactico_Grammar(gramatica, cadena, afd, null);
             let aux = analizadorSintactico.muestra();
-            console.log(aux)
+            // console.log(aux)
             if (aux === false) {
                 setResultado1("Operacion no valida");
             } else {
-                setResultado1("Es una Gramatica correcta");
+                setResultado1("La gramatica es correcta");
+            }
+        }
+    }
+
+    const handleClickAnalizarCadena = (event) => {
+        event.preventDefault();
+        if (cadena !== '') {
+            let analizadorSintactico = new analizadorSintactico_Grammar(gramatica, cadena, afd, AFDCalculadora);
+            let aux = analizadorSintactico.analisisDeCadena(caso);
+            // console.log(aux)
+            if (aux === false) {
+                setResultado2("Operacion no valida");
+            } else {
+                setResultado2("La cadena es correcta");
             }
         }
     }
@@ -87,6 +123,21 @@ const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexi
                             value={gramatica}
                             onChange={(event) => setGramatica(event.target.value)}
                         ></input>
+                        <button
+                            className="boton"
+                            onClick={(event) => handleClickAnalizarGramatica(event)}
+                        >Analizar Gramatica</button>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Gramatica</th>
+                                    <th>{resultado1}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br />
+
                         <label>Ingrese la cadena.</label>
                         <input
                             className="create-input"
@@ -95,19 +146,34 @@ const SintacticAnalysisAFNs = ({afd, setAfd, analizadorLexico, setAnalizadorLexi
                             value={cadena}
                             onChange={(event) => setCadena(event.target.value)}
                         ></input>
+                        <label>
+                            <input type="checkbox"
+                                name=""
+                                id=""
+                                onChange={() => setCaso(!caso)} />
+                            Caso Calculadora
+                        </label>
+                        <div className={caso === true ? "" : "ocultar"}>
+                            <h2>AFD Para la calculadora:</h2>
+                            <form action="">
+                                <input type="file" id="archivo" onChange={(event) => cargarAFDCalculadora(event)}></input>
+                                <button className="boton-descargar" onClick={(e) => cargarAFDtextCalculadora(e)}>Cargar AFD de la calculadora(txt)</button>
+                            </form>
+                        </div>
                         <button
                             className="boton"
                             onClick={(event) => handleClickAnalizarCadena(event)}
                         >Analizar cadena</button>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cadena</th>
+                                    <th>{resultado2}</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </form>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Operacion</th>
-                                <th>{resultado1}</th>
-                            </tr>
-                        </thead>
-                    </table>
                 </div>
             );
         }
