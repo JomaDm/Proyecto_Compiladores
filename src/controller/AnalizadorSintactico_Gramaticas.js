@@ -17,7 +17,7 @@ Set.prototype.difference = function (setB) {
 }
 
 export default class AnalizadorSintactico_Gramaticas {
-    constructor(gramatica, cadena, afd) {
+    constructor(gramatica, cadena, afd, afdCalculadora) {
         this.reglas = [];
         this.contador = 0;
         this.Vt = new Set();
@@ -31,8 +31,9 @@ export default class AnalizadorSintactico_Gramaticas {
         this.pilaDeAnalisis = [];
         this.accionActual = null;
         this.historialAcciones = [];
-        this.analizadorLexicoGramatica = new AnalizadorLexico(gramatica, afd);
         this.analizadorLexicoCadena = new AnalizadorLexico(cadena, afd);
+        this.analizadorLexicoGramatica = new AnalizadorLexico(gramatica, afd);
+        this.analizadorLexicoCalculadora = new AnalizadorLexico(cadena, afdCalculadora);
     }
 
     iniciarCrearLL1() {
@@ -65,8 +66,8 @@ export default class AnalizadorSintactico_Gramaticas {
         arraySimbolos.push('$');
         arrayNoTerminales.push('$');
 
-        console.log(arraySimbolos)
-        console.log(arrayNoTerminales)
+        // console.log(arraySimbolos)
+        // console.log(arrayNoTerminales)
         // console.log(arrayTerminales)
         // console.log(arrayReglas)
 
@@ -82,27 +83,27 @@ export default class AnalizadorSintactico_Gramaticas {
             let beEpsilon = false;
 
             if (!this.verificarEpsilon(this.reglas[j].Regla)) {
-                conjuntoTemporal = this.iniciarFirst(this.reglas[j].NoTerminal)
+                conjuntoTemporal = this.iniciarFirst(this.reglas[j].Regla[0]);
             } else {
                 beEpsilon = true;
                 conjuntoTemporal = this.iniciarFollow(this.reglas[j].NoTerminal)
             }
-            console.log(conjuntoTemporal)
+            // console.log(conjuntoTemporal)
             conjuntoTemporal.forEach((elem) => {
                 // console.log(elem)
 
-                console.log("X :" + arrayTerminales.indexOf(this.reglas[j].NoTerminal) + " Y :" + arrayNoTerminales.indexOf(elem))
+                // console.log("X :" + arrayTerminales.indexOf(this.reglas[j].NoTerminal) + " Y :" + arrayNoTerminales.indexOf(elem))
                 if (beEpsilon) {
                     this.tablaLL1[arrayTerminales.indexOf(this.reglas[j].NoTerminal)][arrayNoTerminales.indexOf(elem)] = 'epsilon';
                 } else {
 
                     // console.log(this.reglas[j].Regla)
                     // console.log(this.tablaLL1[arrayTerminales.indexOf(this.reglas[j].NoTerminal)][arrayNoTerminales.indexOf(elem)])
-                    console.log(elem)
-                    console.log(this.reglas[j].NoTerminal)
-                    console.log(this.reglas[j].Regla)
-                    console.log(arrayTerminales.indexOf(this.reglas[j].NoTerminal))
-                    console.log(arrayNoTerminales.indexOf(elem));
+                    // console.log(elem)
+                    // console.log(this.reglas[j].NoTerminal)
+                    // console.log(this.reglas[j].Regla)
+                    // console.log(arrayTerminales.indexOf(this.reglas[j].NoTerminal))
+                    // console.log(arrayNoTerminales.indexOf(elem));
                     this.tablaLL1[arrayTerminales.indexOf(this.reglas[j].NoTerminal)][arrayNoTerminales.indexOf(elem)] = {
                         regla: this.reglas[j].Regla,
                         NoRegla: Number(j)
@@ -112,22 +113,15 @@ export default class AnalizadorSintactico_Gramaticas {
         }
 
         console.log(this.tablaLL1)
-        // this.analisisDeCadenaUsandoLL1(arraySimbolos, arrayNoTerminales);
+        return this.analisisDeCadenaUsandoLL1(arraySimbolos, arrayNoTerminales);
     }
 
     analisisDeCadenaUsandoLL1(arraySimbolos, arrayNoTerminales) {
-        let aux = this.analizadorLexicoCadena.analizarSigma();
-
-        aux.forEach((elem) => {
-            if (elem.token !== 50 && elem.token === 10) {
-                this.cadenaSimbolos.unshift(elem.cadena);
-            }
-        })
         this.cadenaSimbolos.unshift('$');
         this.pilaDeAnalisis.unshift('$');
         this.pilaDeAnalisis.push(arraySimbolos[0]);
-        console.log(this.cadenaSimbolos)
-        console.log(this.pilaDeAnalisis)
+        // console.log(this.cadenaSimbolos)
+        // console.log(this.pilaDeAnalisis)
 
         let valida = false;
         // this.pilaDeAnalisis.length !== 0 ||
@@ -136,25 +130,29 @@ export default class AnalizadorSintactico_Gramaticas {
             let m = this.cadenaSimbolos.length - 1;
             let x = arraySimbolos.indexOf(this.pilaDeAnalisis[n]);
             let y = arrayNoTerminales.indexOf(this.cadenaSimbolos[m]);
-            console.log("N: " + n + " M: " + m);
-            console.log("X: " + x + " Y: " + y);
+            // console.log("N: " + n + " M: " + m);
+            // console.log("X: " + x + " Y: " + y);
             this.historialAcciones.push(this.tablaLL1[x][y]);
 
             if (this.tablaLL1[x][y] === 'Aceptar') {
                 valida = true;
                 break;
-            } else if (this.tablaLL1[x][y] === 'pop') {
+            }
+            else if (this.tablaLL1[x][y] === 'pop') {
                 this.pilaDeAnalisis.pop();
                 this.cadenaSimbolos.pop();
-            } else if (this.tablaLL1[x][y] === 'epsilon') {
+            }
+            else if (this.tablaLL1[x][y] === 'epsilon') {
                 this.pilaDeAnalisis.pop();
-            } else if (this.tablaLL1[x][y] === -1) {
+            }
+            else if (this.tablaLL1[x][y] === -1) {
                 valida = false;
                 break;
             } else {
                 this.pilaDeAnalisis.pop();
-                console.log(this.tablaLL1[x][y].regla);
-                this.pilaDeAnalisis = this.pilaDeAnalisis.concat(this.tablaLL1[x][y].regla.reverse());
+                let aux = this.tablaLL1[x][y].regla
+                this.pilaDeAnalisis = this.pilaDeAnalisis.concat(aux.reverse());
+                aux.reverse();
             }
             // n = this.pilaDeAnalisis.length - 1;
             // m = this.cadenaSimbolos.length - 1;
@@ -167,7 +165,7 @@ export default class AnalizadorSintactico_Gramaticas {
             console.log(this.cadenaSimbolos);
             // this.pilaDeAnalisis.pop();
         }
-        console.log(valida)
+        return valida;
     }
 
     verificarEpsilon(r) {
@@ -203,7 +201,7 @@ export default class AnalizadorSintactico_Gramaticas {
             this.iniciarFollow(d);
         })
 
-        this.iniciarCrearLL1();
+        return this.iniciarCrearLL1();
     }
 
     first(symbol, visitados) {
@@ -236,6 +234,7 @@ export default class AnalizadorSintactico_Gramaticas {
                 conjuntoFirst: s
             });
         }
+        
         return s;
     }
 
@@ -322,11 +321,58 @@ export default class AnalizadorSintactico_Gramaticas {
         return s;
     }
 
+
+
+    analisisDeCadena(caso) {
+        console.log(caso)
+        if (this.evaluador()) {
+            if (caso === false) {
+                let aux = this.analizadorLexicoCadena.analizarSigma();
+
+                aux.forEach((elem) => {
+                    if (elem.token !== 50 && elem.token === 10) {
+                        this.cadenaSimbolos.unshift(elem.cadena);
+                    }
+                })
+
+                return this.separarTerminales();
+            } else {
+
+                let cadenaTokens = this.analizadorLexicoCalculadora.analizarSigma();
+
+                cadenaTokens.forEach((elem) => {
+                    if (elem.token === 10) {
+                        this.cadenaSimbolos.unshift("MAS");
+                    }else if(elem.token === 20){
+                        this.cadenaSimbolos.unshift("MENOS");
+                    }else if(elem.token === 20){
+                        this.cadenaSimbolos.unshift("MENOS");
+                    }else if(elem.token === 30){
+                        this.cadenaSimbolos.unshift("PROD");
+                    }else if(elem.token === 40){
+                        this.cadenaSimbolos.unshift("DIV");
+                    }else if(elem.token === 50){
+                        this.cadenaSimbolos.unshift("PAR_I");
+                    }else if(elem.token === 60){
+                        this.cadenaSimbolos.unshift("PAR_D");
+                    }else if(elem.token === 70){
+                        this.cadenaSimbolos.unshift("NUM");
+                    }else{
+                        return false;
+                    }
+                })
+                return this.separarTerminales();
+            }
+        }
+        return false;
+    }
+
+
     muestra() {
         if (this.evaluador()) {
             return true;
         } else {
-            return null;
+            return false;
         }
     }
 
@@ -335,10 +381,8 @@ export default class AnalizadorSintactico_Gramaticas {
         if (r) {
             if (this.analizadorLexicoGramatica.yylex().token !== 0) {
                 return false;
-            } else {
-                this.separarTerminales();
-                console.log(this.arrayFirst);
-                console.log(this.arrayFollow);
+            }
+            else {
                 return true;
             }
         }

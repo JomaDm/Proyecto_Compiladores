@@ -3,7 +3,7 @@ import Table from "../components/table"
 import { useState } from "react";
 
 const Transitive = ({automatas, eliminarAutomata}) => {
-    const [op1, setOp1] = useState(-1);
+    const [op1, setOp1] = useState("-1");
 
     const handleClickTransitiva = (event) =>{
         event.preventDefault();

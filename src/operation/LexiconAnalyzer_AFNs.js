@@ -33,7 +33,7 @@ const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata, elminarVariosAutomata
     const handleClickUnirAuto = (event) => {
         event.preventDefault();        
         let duplicados = hasDuplicates(tokenvalue);
-        if(listaSeleccionados.length >= 2 && !tokenvalue.includes("0") && !duplicados){
+        if(listaSeleccionados.length >= 1 && !tokenvalue.includes("0") && !duplicados){
             let tokenFinal = [];
             let automatasSeleccionados = []            
             listaSeleccionados.forEach(index => {                
@@ -72,7 +72,7 @@ const LexiconAnalyzerAFNs = ({automatas, eliminarAutomata, elminarVariosAutomata
     return (  
         <div className="LexiconAnalyzer_AFNs">            		
 			<Operations></Operations>
-            {automatas.length > 1 && 
+            {automatas.length > 0 && 
             <form className="create">
                 <h3>Unir AFN's para construir un analizador léxico</h3>
                 <p>Selecciona los automatas a unir:</p>

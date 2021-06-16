@@ -21,7 +21,8 @@ const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico})
         setOp1("-1"); 
     }
 
-    const handleClickDescargar = () =>{
+    const handleClickDescargar = (event) =>{
+        event.preventDefault()
         let auxAFD =JSON.stringify(afd);
         descargarArchivo(auxAFD, cadena + '.txt', 'text/plain')
     }
@@ -30,8 +31,9 @@ const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico})
         var a = document.createElement("a");
         var file = new Blob([content], {type: contentType});
         a.href = URL.createObjectURL(file);
-        a.download = fileName;
+        a.download = fileName;        
         a.click();
+        
     }
 
     const deplegarTablaAfd = (afd) => {
@@ -51,7 +53,7 @@ const AFNtoAFD = ({automatas, eliminarAutomata,afd, setAfd,setAnalizadorLexico})
                             value={cadena}
                             onChange={(event) => setCadena(event.target.value)}
                         ></input>         
-                        <button className="boton-descargar" onClick = {() => handleClickDescargar()}>Descargar AFD(txt)</button>
+                        <button className="boton-descargar" onClick = {(event) => handleClickDescargar(event)}>Descargar AFD(txt)</button>
                     </form>                    
                     <AfdTable afd={afd}></AfdTable>                    
                 </div>
